@@ -136,7 +136,7 @@ export default function ValuesSetup() {
                       value={v.name || ''}
                       onChange={(e) => updateField(v._key, 'name', e.target.value)}
                       placeholder="e.g. Integrity"
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400"
+                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
                     />
                   </div>
                   <div className="col-span-5">
@@ -144,7 +144,7 @@ export default function ValuesSetup() {
                       value={v.description || ''}
                       onChange={(e) => updateField(v._key, 'description', e.target.value)}
                       placeholder="Short description..."
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400"
+                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
                     />
                   </div>
                   <div className="col-span-2">
@@ -154,7 +154,7 @@ export default function ValuesSetup() {
                         type="number" min="0" step="100"
                         value={v.financial_weight || 0}
                         onChange={(e) => updateField(v._key, 'financial_weight', e.target.value)}
-                        className="w-full border border-gray-200 rounded-lg pl-6 pr-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400"
+                        className="w-full border border-gray-200 rounded-lg pl-6 pr-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
                       />
                     </div>
                   </div>

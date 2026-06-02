@@ -60,7 +60,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </span>
               <button
                 onClick={logout}
-                className="text-sm text-brand-100 hover:text-white px-3 py-1.5 rounded border border-brand-400 hover:border-white transition-colors"
+                className="text-sm text-brand-100 hover:text-white px-3 py-1.5 rounded border border-brand-500 hover:border-white transition-colors"
               >
                 Logout
               </button>
