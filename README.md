@@ -64,7 +64,7 @@ On startup the system automatically:
 
 | Service | URL |
 |---------|-----|
-| App (frontend) | http://localhost:3000 |
+| App (frontend) | http://localhost:8080 |
 | REST API | http://localhost:8000/api/ |
 | Django Admin | http://localhost:8000/django-admin/ |
 
@@ -224,7 +224,7 @@ A training program is flagged when `avg_score < trigger_threshold`.
 | `DJANGO_SECRET_KEY` | Django secret (change in production) | — |
 | `DEBUG` | Django debug mode | `True` |
 | `DATABASE_URL` | PostgreSQL connection string | set by Docker |
-| `CORS_ALLOWED_ORIGINS` | Allowed frontend origins | `http://localhost:3000` |
+| `CORS_ALLOWED_ORIGINS` | Allowed frontend origins | `http://localhost:8080` |
 | `SUPERADMIN_EMAIL` | Auto-created super admin email | `admin@credibilityiq.com` |
 | `SUPERADMIN_PASSWORD` | Auto-created super admin password | `Admin@123456` |
 | `NEXT_PUBLIC_API_URL` | Backend URL (used by frontend) | `http://localhost:8000` |
