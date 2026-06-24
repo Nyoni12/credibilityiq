@@ -37,6 +37,7 @@ export interface Assessment {
   title: string;
   is_active: boolean;
   response_count: number;
+  overall_score: number | null;
   created_at: string;
   closes_at: string | null;
 }
@@ -88,18 +89,26 @@ export interface DashboardSummary {
   assessment_link_token: string;
 }
 
+export interface AdminCompany {
+  id: number;
+  name: string;
+  industry: string;
+  subscription_tier: 'starter' | 'professional' | 'enterprise';
+  is_active: boolean;
+  user_count: number;
+  assessment_count: number;
+  total_responses: number;
+  latest_score: number | null;
+  created_at: string;
+}
+
 export interface SuperAdminSummary {
-  companies: {
-    id: number;
-    name: string;
-    industry: string;
-    subscription_tier: string;
-    is_active: boolean;
-    user_count: number;
-    assessment_count: number;
-    created_at: string;
-  }[];
+  companies: AdminCompany[];
   total: number;
+  active_count: number;
+  total_assessments: number;
+  total_responses: number;
+  tier_breakdown: { starter: number; professional: number; enterprise: number };
 }
 
 export interface SurveyData {

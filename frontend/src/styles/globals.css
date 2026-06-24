@@ -11,6 +11,9 @@
   .field-input {
     @apply w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent;
   }
+  .field-label {
+    @apply block text-sm font-medium text-gray-700 mb-1;
+  }
 }
 
 @layer utilities {
@@ -73,8 +76,8 @@
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(83, 74, 183, 0.4); }
-  50%       { box-shadow: 0 0 50px rgba(83, 74, 183, 0.8), 0 0 80px rgba(83, 74, 183, 0.3); }
+  0%, 100% { box-shadow: 0 0 20px rgba(31, 33, 146, 0.4); }
+  50%       { box-shadow: 0 0 50px rgba(31, 33, 146, 0.8), 0 0 80px rgba(163, 41, 204, 0.3); }
 }
 
 @keyframes spin-slow {
@@ -109,26 +112,42 @@
 .animate-fadeInLeft  { animation: fadeInLeft 0.7s ease forwards; }
 .animate-fadeInRight { animation: fadeInRight 0.7s ease forwards; }
 .animate-fadeIn      { animation: fadeIn 0.8s ease forwards; }
-.animate-float       { animation: float 6s ease-in-out infinite; }
-.animate-float-rev   { animation: floatReverse 7s ease-in-out infinite; }
+.animate-float       { animation: float 6s ease-in-out infinite; will-change: transform; }
+.animate-float-rev   { animation: floatReverse 7s ease-in-out infinite; will-change: transform; }
 .animate-pulse-glow  { animation: pulse-glow 2.5s ease-in-out infinite; }
-.animate-spin-slow   { animation: spin-slow 12s linear infinite; }
-.animate-morph       { animation: morph 8s ease-in-out infinite; }
-.animate-ticker      { animation: ticker 30s linear infinite; }
+.animate-spin-slow   { animation: spin-slow 12s linear infinite; will-change: transform; }
+.animate-morph       { animation: morph 8s ease-in-out infinite; will-change: border-radius; }
+.animate-ticker      { animation: ticker 30s linear infinite; will-change: transform; }
+
+/* ── Reduce motion for accessibility & performance ──────── */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fadeInUp, .animate-fadeInDown, .animate-fadeInLeft,
+  .animate-fadeInRight, .animate-fadeIn {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .animate-float, .animate-float-rev, .animate-morph,
+  .animate-pulse-glow, .animate-spin-slow, .animate-ticker {
+    animation: none;
+  }
+  .shimmer-btn::after { animation: none; }
+  .reveal, .reveal-left, .reveal-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
 
 .gradient-text {
-  background: linear-gradient(135deg, #534AB7, #818CF8, #38BDF8, #534AB7);
-  background-size: 300% 300%;
+  background: linear-gradient(135deg, #A329CC 0%, #1F2192 50%, #00A651 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradientShift 4s ease infinite;
 }
 
 .gradient-bg {
-  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-  background-size: 200% 200%;
-  animation: gradientShift 8s ease infinite;
+  background: linear-gradient(135deg, #070831 0%, #1F2192 45%, #2D1070 80%, #070831 100%);
 }
 
 .shimmer-btn {
@@ -138,11 +157,14 @@
 .shimmer-btn::after {
   content: '';
   position: absolute;
-  top: 0; left: 0;
-  width: 40%;
+  top: 0; left: -100%;
+  width: 60%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-  animation: beam 2.5s ease-in-out infinite;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.4s ease;
+}
+.shimmer-btn:hover::after {
+  left: 150%;
 }
 
 .glass {
@@ -159,33 +181,29 @@
   border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
-/* Scroll-reveal base state */
-.reveal {
+/* Scroll-reveal — hidden only after JS marks body as ready          */
+/* Without the .js-reveal class elements are always visible (no-JS   */
+/* and SSR flash-of-invisible-content are both prevented).           */
+body.js-reveal .reveal {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(36px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
 }
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.reveal-left {
+body.js-reveal .reveal-left {
   opacity: 0;
-  transform: translateX(-40px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateX(-36px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
 }
-.reveal-left.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
-.reveal-right {
+body.js-reveal .reveal-right {
   opacity: 0;
-  transform: translateX(40px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateX(36px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
 }
-.reveal-right.visible {
+body.js-reveal .reveal.visible,
+body.js-reveal .reveal-left.visible,
+body.js-reveal .reveal-right.visible {
   opacity: 1;
-  transform: translateX(0);
+  transform: none;
 }
 
 /* Stagger delays */

@@ -10,13 +10,23 @@ class Command(BaseCommand):
         email = settings.SUPERADMIN_EMAIL
         password = settings.SUPERADMIN_PASSWORD
 
-        if not User.objects.filter(is_superadmin=True).exists():
-            User.objects.create_superuser(
-                email=email,
-                password=password,
-                first_name='Super',
-                last_name='Admin',
-            )
+        user, created = User.objects.get_or_create(
+            email=email,
+            defaults={
+                'first_name': 'Super',
+                'last_name': 'Admin',
+                'is_superadmin': True,
+                'is_staff': True,
+                'is_active': True,
+            }
+        )
+        # Always sync the password from env so rebuilds don't leave a stale hash
+        user.set_password(password)
+        user.is_superadmin = True
+        user.is_active = True
+        user.save(update_fields=['password', 'is_superadmin', 'is_active'])
+
+        if created:
             self.stdout.write(self.style.SUCCESS(f'Super admin created: {email}'))
         else:
-            self.stdout.write('Super admin already exists.')
+            self.stdout.write(self.style.SUCCESS(f'Super admin password synced: {email}'))

@@ -131,6 +131,11 @@ export default function Dashboard() {
           <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
             <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
               <h2 className="font-semibold text-gray-900">Assessments</h2>
+              <Link href="/assessments/new">
+                <button className="px-3 py-1.5 bg-brand-50 text-brand-600 rounded-lg text-xs font-semibold hover:bg-brand-100 transition-colors">
+                  + New
+                </button>
+              </Link>
             </div>
             {loading ? (
               <div className="p-8 text-center text-gray-400">Loading...</div>
@@ -150,14 +155,14 @@ export default function Dashboard() {
                     <th className="text-left px-5 py-3 font-medium text-gray-600">Title</th>
                     <th className="text-left px-5 py-3 font-medium text-gray-600">Status</th>
                     <th className="text-left px-5 py-3 font-medium text-gray-600">Responses</th>
-                    <th className="text-left px-5 py-3 font-medium text-gray-600">Created</th>
+                    <th className="text-left px-5 py-3 font-medium text-gray-600">Score</th>
                     <th className="px-5 py-3" />
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-50">
                   {assessments.map((a) => (
                     <tr key={a.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-5 py-3 font-medium">{a.title}</td>
+                      <td className="px-5 py-3 font-medium text-gray-900">{a.title}</td>
                       <td className="px-5 py-3">
                         <span className={clsx(
                           'text-xs px-2 py-1 rounded-full font-medium',
@@ -169,15 +174,32 @@ export default function Dashboard() {
                         </span>
                       </td>
                       <td className="px-5 py-3 text-gray-600">{a.response_count}</td>
-                      <td className="px-5 py-3 text-gray-500">
-                        {new Date(a.created_at).toLocaleDateString()}
+                      <td className="px-5 py-3">
+                        {a.overall_score != null ? (
+                          <span className={clsx(
+                            'text-sm font-bold',
+                            a.overall_score > 89 ? 'text-green-600' :
+                            a.overall_score > 65 ? 'text-yellow-600' :
+                            a.overall_score > 50 ? 'text-orange-600' : 'text-red-600'
+                          )}>
+                            {a.overall_score}%
+                          </span>
+                        ) : (
+                          <span className="text-xs text-gray-400">
+                            {a.response_count === 0 ? 'Awaiting responses' : '—'}
+                          </span>
+                        )}
                       </td>
                       <td className="px-5 py-3 text-right">
-                        <Link href={`/scorecard/${a.id}`}>
-                          <button className="text-brand-600 hover:text-brand-700 font-medium text-xs">
-                            View Scorecard →
-                          </button>
-                        </Link>
+                        {a.response_count > 0 ? (
+                          <Link href={`/scorecard/${a.id}`}>
+                            <button className="px-3 py-1.5 bg-brand-500 text-white rounded-lg text-xs font-semibold hover:bg-brand-600 transition-colors">
+                              Calculate Score →
+                            </button>
+                          </Link>
+                        ) : (
+                          <span className="text-xs text-gray-300 px-3 py-1.5">No responses yet</span>
+                        )}
                       </td>
                     </tr>
                   ))}

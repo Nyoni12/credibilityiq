@@ -23,12 +23,23 @@ class ValueRatingSerializer(serializers.ModelSerializer):
 class AssessmentSerializer(serializers.ModelSerializer):
     response_count = serializers.IntegerField(read_only=True)
     company_name = serializers.CharField(source='company.name', read_only=True)
+    overall_score = serializers.SerializerMethodField()
+
+    def get_overall_score(self, obj):
+        from django.db.models import Avg
+        count = getattr(obj, 'response_count', None)
+        if count == 0:
+            return None
+        agg = ValueRating.objects.filter(response__assessment=obj).aggregate(avg=Avg('score'))
+        if agg['avg'] is None:
+            return None
+        return round(agg['avg'] / 10 * 100, 1)
 
     class Meta:
         model = Assessment
         fields = ['id', 'company', 'company_name', 'title', 'is_active',
-                  'response_count', 'created_at', 'closes_at']
-        read_only_fields = ['id', 'created_at', 'response_count', 'company_name']
+                  'response_count', 'overall_score', 'created_at', 'closes_at']
+        read_only_fields = ['id', 'created_at', 'response_count', 'company_name', 'overall_score']
 
 
 class AssessmentCreateSerializer(serializers.ModelSerializer):

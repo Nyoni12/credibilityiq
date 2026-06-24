@@ -33,8 +33,10 @@ export default function Login() {
     <div className="min-h-screen bg-gradient-to-br from-brand-50 to-brand-100 flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-brand-700">CredibilityIQ</h1>
-          <p className="text-gray-500 mt-1">Corporate Credibility Scorecard Platform</p>
+          <div className="flex justify-center mb-4">
+            <img src="/logo.png" alt="Credibility Factory Afrique" className="h-16 w-auto" />
+          </div>
+          <p className="text-gray-500 text-sm">Corporate Credibility Scorecard Platform</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-lg p-8">
@@ -73,9 +75,6 @@ export default function Login() {
             </button>
           </form>
 
-          <div className="mt-6 pt-5 border-t border-gray-100 text-xs text-center text-gray-400">
-            Super Admin: admin@credibilityiq.com
-          </div>
         </div>
       </div>
     </div>

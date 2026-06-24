@@ -4,10 +4,10 @@ import { ValueResult } from '@/types';
 interface Props { values: ValueResult[]; }
 
 function scoreColor(score: number) {
-  if (score >= 8) return '#10B981';
-  if (score >= 6) return '#3B82F6';
-  if (score >= 4) return '#F59E0B';
-  return '#EF4444';
+  if (score > 8.9) return '#059669'; // CC — green
+  if (score > 6.5) return '#ca8a04'; // GW — yellow
+  if (score > 5.0) return '#ea580c'; // HDU — orange
+  return '#dc2626';                  // ICU — red
 }
 
 export default function ValueBarChart({ values }: Props) {

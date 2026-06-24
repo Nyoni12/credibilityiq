@@ -16,10 +16,6 @@ class Assessment(models.Model):
     def __str__(self):
         return f'{self.company.name} – {self.title}'
 
-    @property
-    def response_count(self):
-        return self.responses.count()
-
 
 class AssessmentResponse(models.Model):
     assessment = models.ForeignKey(Assessment, on_delete=models.CASCADE, related_name='responses')

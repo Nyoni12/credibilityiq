@@ -25,12 +25,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      <header className="bg-brand-500 shadow-sm">
+      <header className="bg-white border-b border-gray-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-8">
               <Link href={user?.is_superadmin ? '/admin' : '/dashboard'}>
-                <span className="text-white font-bold text-xl tracking-tight">CredibilityIQ</span>
+                <img src="/logo.png" alt="Credibility Factory Afrique" className="h-10 w-auto" />
               </Link>
               <nav className="hidden md:flex gap-1">
                 {navItems.map((item) => (
@@ -40,8 +40,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     className={clsx(
                       'px-3 py-2 rounded-md text-sm font-medium transition-colors',
                       router.pathname === item.href
-                        ? 'bg-brand-700 text-white'
-                        : 'text-brand-100 hover:bg-brand-600 hover:text-white'
+                        ? 'bg-brand-500 text-white'
+                        : 'text-brand-700 hover:bg-brand-50 hover:text-brand-900'
                     )}
                   >
                     {item.label}
@@ -50,17 +50,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </nav>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-brand-100 text-sm hidden sm:block">
+              <span className="text-gray-600 text-sm hidden sm:block">
                 {user?.full_name}
                 {user?.is_superadmin && (
-                  <span className="ml-2 bg-yellow-400 text-yellow-900 text-xs px-2 py-0.5 rounded-full font-semibold">
+                  <span className="ml-2 bg-accent-100 text-accent-700 text-xs px-2 py-0.5 rounded-full font-semibold">
                     Super Admin
                   </span>
                 )}
               </span>
               <button
                 onClick={logout}
-                className="text-sm text-brand-100 hover:text-white px-3 py-1.5 rounded border border-brand-500 hover:border-white transition-colors"
+                className="text-sm text-brand-600 hover:text-brand-800 px-3 py-1.5 rounded border border-brand-200 hover:border-brand-400 transition-colors"
               >
                 Logout
               </button>
@@ -73,8 +73,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         {children}
       </main>
 
-      <footer className="text-center text-xs text-gray-400 py-4 border-t border-gray-200">
-        CredibilityIQ &copy; {new Date().getFullYear()} &mdash; Corporate Credibility Scorecard Platform
+      <footer className="flex items-center justify-center gap-3 text-xs text-gray-400 py-4 border-t border-gray-100">
+        <img src="/logo.png" alt="" className="h-5 w-auto opacity-40" />
+        <span>&copy; {new Date().getFullYear()} — Corporate Credibility Scorecard Platform</span>
       </footer>
     </div>
   );

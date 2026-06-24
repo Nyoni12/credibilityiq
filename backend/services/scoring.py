@@ -3,6 +3,30 @@ from apps.assessments.models import Assessment, AssessmentResponse, ValueRating,
 from apps.companies.models import CompanyValue
 
 
+def get_lifecycle_position(avg_score: float) -> dict:
+    """Map a 1-10 avg score to the CFA Credibility Life-Cycle (CLC) stage."""
+    if avg_score <= 5.0:
+        return {'label': 'Intensive Care Unit', 'short': 'ICU', 'urgency': 'critical'}
+    elif avg_score <= 6.5:
+        return {'label': 'High Dependency Unit', 'short': 'HDU', 'urgency': 'serious'}
+    elif avg_score <= 8.9:
+        return {'label': 'General Ward', 'short': 'GW', 'urgency': 'moderate'}
+    else:
+        return {'label': 'Celebrity Credibility', 'short': 'CC', 'urgency': 'excellent'}
+
+
+def get_overall_lifecycle(overall_score_pct: float) -> dict:
+    """Map the 0-100 overall score % to the CFA Credibility Life-Cycle (CLC) stage."""
+    if overall_score_pct <= 50:
+        return {'label': 'Intensive Care Unit', 'short': 'ICU', 'urgency': 'critical'}
+    elif overall_score_pct <= 65:
+        return {'label': 'High Dependency Unit', 'short': 'HDU', 'urgency': 'serious'}
+    elif overall_score_pct <= 89:
+        return {'label': 'General Ward', 'short': 'GW', 'urgency': 'moderate'}
+    else:
+        return {'label': 'Celebrity Credibility', 'short': 'CC', 'urgency': 'excellent'}
+
+
 def calculate_scorecard(assessment_id: int) -> dict:
     assessment = Assessment.objects.select_related('company').get(pk=assessment_id)
     company = assessment.company
@@ -41,20 +65,21 @@ def calculate_scorecard(assessment_id: int) -> dict:
             'gap_percentage': round(gap_percentage, 2),
             'financial_loss': round(financial_loss, 2),
             'training_programs': list(flagged_programs),
+            'lifecycle': get_lifecycle_position(avg_score),
         })
 
     count = len(value_results)
     overall_score = (total_score_sum / count / 10 * 100) if count > 0 else 0.0
 
-    # Credibility band
-    if overall_score >= 80:
-        band = 'excellent'
-    elif overall_score >= 60:
-        band = 'good'
-    elif overall_score >= 40:
-        band = 'fair'
+    # Credibility band — maps to CSS class names in the PDF template
+    if overall_score > 89:
+        band = 'cc'
+    elif overall_score > 65:
+        band = 'gw'
+    elif overall_score > 50:
+        band = 'hdu'
     else:
-        band = 'poor'
+        band = 'icu'
 
     # Top 3 costliest gaps
     top_3_gaps = sorted(value_results, key=lambda x: x['financial_loss'], reverse=True)[:3]
@@ -72,6 +97,9 @@ def calculate_scorecard(assessment_id: int) -> dict:
     if company.logo:
         logo_url = company.logo.url
 
+    # Separate urgent values (ICU + HDU) for report
+    urgent_values = [v for v in value_results if v['lifecycle']['urgency'] in ('critical', 'serious')]
+
     return {
         'assessment_id': assessment_id,
         'assessment_title': assessment.title,
@@ -81,9 +109,11 @@ def calculate_scorecard(assessment_id: int) -> dict:
         'total_responses': total_responses,
         'overall_score': round(overall_score, 2),
         'overall_band': band,
+        'overall_lifecycle': get_overall_lifecycle(overall_score),
         'total_financial_loss': round(total_financial_loss, 2),
         'values': value_results,
         'top_3_gaps': top_3_gaps,
+        'urgent_values': urgent_values,
         'training_recommendations': list(all_training.values()),
         'is_active': assessment.is_active,
         'created_at': assessment.created_at.isoformat(),

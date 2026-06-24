@@ -77,6 +77,11 @@ export const authAPI = {
   logout: (refresh: string) =>
     api.post('/auth/logout/', { refresh }),
   profile: () => api.get('/auth/profile/'),
+  signup: (data: {
+    company_name: string; domain: string; industry: string;
+    subscription_tier: string; first_name: string; last_name: string;
+    email: string; password: string;
+  }) => api.post('/auth/signup/', data),
 };
 
 // ---- Companies ----

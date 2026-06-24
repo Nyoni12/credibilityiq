@@ -1,31 +1,33 @@
 interface Props {
   score: number;
-  band: 'excellent' | 'good' | 'fair' | 'poor';
+  band: string;   // 'icu' | 'hdu' | 'gw' | 'cc'
   size?: number;
 }
 
-const BAND_COLORS = {
-  excellent: '#10B981',
-  good:      '#3B82F6',
-  fair:      '#F59E0B',
-  poor:      '#EF4444',
+const CLC: Record<string, { color: string; short: string; label: string }> = {
+  cc:  { color: '#059669', short: 'CC',  label: 'Celebrity Credibility'  },
+  gw:  { color: '#ca8a04', short: 'GW',  label: 'General Ward'           },
+  hdu: { color: '#ea580c', short: 'HDU', label: 'High Dependency Unit'   },
+  icu: { color: '#dc2626', short: 'ICU', label: 'Intensive Care Unit'     },
 };
 
-const BAND_LABELS = {
-  excellent: 'Excellent',
-  good:      'Good',
-  fair:      'Fair',
-  poor:      'Poor',
-};
+function getClc(band: string, score: number) {
+  if (CLC[band]) return CLC[band];
+  // Fallback: derive from score when band is an old/unknown value
+  if (score > 89) return CLC.cc;
+  if (score > 65) return CLC.gw;
+  if (score > 50) return CLC.hdu;
+  return CLC.icu;
+}
 
 export default function CredibilityRing({ score, band, size = 180 }: Props) {
   const r = (size / 2) - 16;
   const circumference = 2 * Math.PI * r;
   const fill = (score / 100) * circumference;
-  const color = BAND_COLORS[band];
+  const { color, short, label } = getClc(band, score);
 
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className="flex flex-col items-center gap-3">
       <svg width={size} height={size} style={{ transform: 'rotate(-90deg)' }}>
         <circle
           cx={size / 2} cy={size / 2} r={r}
@@ -38,22 +40,33 @@ export default function CredibilityRing({ score, band, size = 180 }: Props) {
           strokeLinecap="round"
           style={{ transition: 'stroke-dasharray 0.8s ease' }}
         />
+        {/* Score */}
         <text
-          x="50%" y="50%"
+          x="50%" y="45%"
           textAnchor="middle" dominantBaseline="middle"
-          style={{ transform: 'rotate(90deg)', transformOrigin: 'center', fontSize: size * 0.22, fontWeight: 700, fill: color }}
+          style={{ transform: 'rotate(90deg)', transformOrigin: 'center', fontSize: size * 0.2, fontWeight: 800, fill: color }}
         >
           {score.toFixed(1)}%
         </text>
+        {/* CLC short code */}
         <text
-          x="50%" y="65%"
+          x="50%" y="63%"
           textAnchor="middle" dominantBaseline="middle"
-          style={{ transform: 'rotate(90deg)', transformOrigin: 'center', fontSize: size * 0.09, fill: '#6B7280' }}
+          style={{ transform: 'rotate(90deg)', transformOrigin: 'center', fontSize: size * 0.11, fontWeight: 700, fill: color }}
         >
-          {BAND_LABELS[band]}
+          {short}
         </text>
       </svg>
-      <span className="text-sm font-medium text-gray-600">Overall Credibility Score</span>
+      {/* Stage label below ring */}
+      <div className="text-center">
+        <p className="text-sm font-medium text-gray-600">Overall Credibility Score</p>
+        <p
+          className="text-xs font-bold mt-0.5 px-3 py-0.5 rounded-full inline-block"
+          style={{ color, background: `${color}18` }}
+        >
+          {label}
+        </p>
+      </div>
     </div>
   );
 }

@@ -26,6 +26,9 @@ class AssessmentListCreateView(generics.ListCreateAPIView):
 
     def get_serializer_context(self):
         ctx = super().get_serializer_context()
+        # Only resolve company context for POST (create) requests
+        if self.request.method != 'POST':
+            return ctx
         user = self.request.user
         if user.is_superadmin:
             company_id = self.request.data.get('company')

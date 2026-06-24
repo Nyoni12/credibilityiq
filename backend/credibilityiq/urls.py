@@ -12,7 +12,7 @@ from rest_framework.response import Response
 def api_root(request):
     base = request.build_absolute_uri('/api')
     return Response({
-        'name': 'CredibilityIQ API',
+        'name': 'Credibility Factory Afrique API',
         'version': '1.0',
         'endpoints': {
             'auth': {

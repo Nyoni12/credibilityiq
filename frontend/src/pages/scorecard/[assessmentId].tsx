@@ -173,10 +173,10 @@ export default function ScorecardPage() {
               <ValueBarChart values={scorecard.values} />
               <div className="mt-6 flex gap-4 text-xs flex-wrap">
                 {[
-                  { color: '#10B981', label: 'Excellent (8–10)' },
-                  { color: '#3B82F6', label: 'Good (6–8)' },
-                  { color: '#F59E0B', label: 'Fair (4–6)' },
-                  { color: '#EF4444', label: 'Poor (0–4)' },
+                  { color: '#059669', label: 'CC — Celebrity Credibility (>8.9/10)' },
+                  { color: '#ca8a04', label: 'GW — General Ward (6.6–8.9/10)'       },
+                  { color: '#ea580c', label: 'HDU — High Dependency Unit (5.1–6.5/10)' },
+                  { color: '#dc2626', label: 'ICU — Intensive Care Unit (≤5.0/10)'  },
                 ].map(({ color, label }) => (
                   <span key={label} className="flex items-center gap-1.5">
                     <span className="w-3 h-3 rounded-sm inline-block" style={{ background: color }} />

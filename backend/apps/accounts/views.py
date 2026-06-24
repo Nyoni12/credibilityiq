@@ -8,6 +8,83 @@ from .serializers import CustomTokenObtainPairSerializer, UserSerializer, UserPr
 from .permissions import IsSuperAdmin
 
 
+class CompanySignupView(APIView):
+    """Public endpoint: register a new company + its first admin user."""
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        data = request.data
+        company_name = data.get('company_name', '').strip()
+        domain = data.get('domain', '').strip().lower().lstrip('https://').lstrip('http://').lstrip('www.').split('/')[0]
+        industry = data.get('industry', '').strip()
+        tier = data.get('subscription_tier', 'starter')
+        first_name = data.get('first_name', '').strip()
+        last_name = data.get('last_name', '').strip()
+        email = data.get('email', '').strip().lower()
+        password = data.get('password', '')
+
+        errors = {}
+        if not company_name:
+            errors['company_name'] = 'Company name is required.'
+        if not domain:
+            errors['domain'] = 'Company domain is required.'
+        if not first_name:
+            errors['first_name'] = 'First name is required.'
+        if not last_name:
+            errors['last_name'] = 'Last name is required.'
+        if not email or '@' not in email:
+            errors['email'] = 'A valid email address is required.'
+        if not password or len(password) < 8:
+            errors['password'] = 'Password must be at least 8 characters.'
+        if tier not in ('starter', 'professional', 'enterprise'):
+            tier = 'starter'
+
+        if errors:
+            return Response(errors, status=status.HTTP_400_BAD_REQUEST)
+
+        from apps.companies.models import Company
+        if domain and Company.objects.filter(domain=domain).exists():
+            return Response({'domain': 'A company with this domain is already registered.'}, status=status.HTTP_400_BAD_REQUEST)
+        if User.objects.filter(email=email).exists():
+            return Response({'email': 'An account with this email already exists.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        company = Company.objects.create(
+            name=company_name,
+            domain=domain,
+            industry=industry,
+            subscription_tier=tier,
+        )
+
+        user = User(
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            company=company,
+            is_superadmin=False,
+        )
+        user.set_password(password)
+        user.save()
+
+        refresh = RefreshToken.for_user(user)
+        refresh['email'] = user.email
+        refresh['is_superadmin'] = False
+        refresh['full_name'] = user.full_name
+        refresh['company_id'] = company.id
+        refresh['company_name'] = company.name
+
+        return Response({
+            'access': str(refresh.access_token),
+            'refresh': str(refresh),
+            'user': {
+                'id': user.id,
+                'email': user.email,
+                'full_name': user.full_name,
+                'is_superadmin': False,
+                'company_id': company.id,
+            },
+        }, status=status.HTTP_201_CREATED)
+
+
 class LoginView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
     permission_classes = [permissions.AllowAny]
