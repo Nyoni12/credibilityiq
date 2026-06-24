@@ -3,7 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from .models import Company, CompanyValue
+from .models import Company, CompanyValue, CFA_VALUES
 from .serializers import CompanySerializer, CompanyDetailSerializer, CompanyValueSerializer
 from apps.accounts.permissions import IsSuperAdmin, IsCompanyAdmin, IsSuperAdminOrCompanyAdmin
 
@@ -112,6 +112,13 @@ class BulkUpdateValuesView(APIView):
         values_data = request.data.get('values', [])
         if len(values_data) > 12:
             return Response({'detail': 'Maximum 12 values.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        for v in values_data:
+            if v.get('name') not in CFA_VALUES:
+                return Response(
+                    {'detail': f"'{v.get('name')}' is not a recognised CFA Credibility Building Block."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
 
         CompanyValue.objects.filter(company=company).delete()
         created = []

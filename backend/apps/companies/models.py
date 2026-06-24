@@ -1,6 +1,21 @@
 import uuid
 from django.db import models
 
+CFA_VALUES = [
+    'Teamwork',
+    'Integrity',
+    'Reputation',
+    'Respect for self and others',
+    'Humility',
+    'Empathy',
+    'Fairness',
+    'Hardwork',
+    'Responsibility',
+    'Accountability',
+    'Trustworthiness',
+    'Honesty without offense',
+]
+
 
 class Company(models.Model):
     SUBSCRIPTION_TIERS = [
