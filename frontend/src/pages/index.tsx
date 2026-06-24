@@ -73,15 +73,12 @@ function Counter({ target, suffix = '', duration = 2000 }: { target: number; suf
 // ── Feature card ───────────────────────────────────────────────────
 function FeatureCard({ icon, title, desc, delay = '' }: { icon: string; title: string; desc: string; delay?: string }) {
   return (
-    <div className={`reveal ${delay} group relative bg-white rounded-2xl p-7 shadow-lg border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-400 overflow-hidden`}>
-      <div className="absolute inset-0 bg-gradient-to-br from-brand-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
-      <div className="relative">
-        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500 to-accent-500 flex items-center justify-center text-2xl mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300">
-          {icon}
-        </div>
-        <h3 className="text-lg font-bold text-gray-900 mb-2">{title}</h3>
-        <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
+    <div className={`reveal ${delay} group bg-white rounded-xl p-8 border border-gray-200 hover:border-brand-300 hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}>
+      <div className="w-11 h-11 rounded-lg bg-brand-50 border border-brand-100 flex items-center justify-center text-xl mb-5 group-hover:bg-brand-100 transition-colors duration-300">
+        {icon}
       </div>
+      <h3 className="text-base font-bold text-gray-900 mb-2 tracking-tight">{title}</h3>
+      <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
     </div>
   );
 }
@@ -171,87 +168,12 @@ export default function LandingPage() {
       {/* ── Hero ────────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
         style={{
-          background: [
-            'radial-gradient(ellipse at 78% 8%,  rgba(163,41,204,.38) 0%, transparent 48%)',
-            'radial-gradient(ellipse at 10% 82%, rgba(0,166,81,.22)   0%, transparent 46%)',
-            'radial-gradient(ellipse at 42% 50%, rgba(31,33,146,.55)  0%, transparent 62%)',
-            'linear-gradient(152deg, #020317 0%, #07093c 22%, #181b8e 52%, #130740 80%, #020317 100%)',
-          ].join(','),
+          backgroundImage: "url('/hero-bg.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
+          backgroundRepeat: 'no-repeat',
         }}>
 
-        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-
-          {/* ── Africa continent watermark — core brand element ── */}
-          <div className="absolute inset-0 flex items-center justify-end">
-            <svg
-              viewBox="0 0 100 122"
-              fill="currentColor"
-              className="h-[92vh] max-h-[840px] w-auto opacity-[0.09] text-white translate-x-[10%] flex-shrink-0"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              {/*
-                Simplified Africa continent outline.
-                Key features preserved: Mediterranean coast, Horn of Africa (east),
-                Cape of Good Hope (south), Gulf of Guinea indent (west), Senegal bulge.
-              */}
-              <path d="
-                M 30,4
-                C 35,1 38,0 41,0
-                L 53,2
-                C 63,5 69,9 71,11
-                L 73,19
-                C 79,30 85,38 88,43
-                L 100,43
-                C 97,49 94,52 93,54
-                L 82,64
-                C 80,72 79,77 79,80
-                L 73,94
-                L 65,110
-                L 51,122
-                L 42,113
-                L 34,96
-                C 37,87 40,83 40,79
-                L 38,69
-                L 36,59
-                C 30,56 25,53 23,53
-                L 17,53
-                C 12,50  8,47  7,46
-                L 0,38
-                L 12,21
-                Z
-              " />
-            </svg>
-          </div>
-
-          {/* Fine dot-grid texture */}
-          <div className="absolute inset-0 opacity-[0.055]"
-            style={{
-              backgroundImage: [
-                'radial-gradient(circle, rgba(255,255,255,.7) 1px, transparent 1px)',
-              ].join(','),
-              backgroundSize: '40px 40px',
-            }} />
-
-          {/* Subtle line grid */}
-          <div className="absolute inset-0 opacity-[0.04]"
-            style={{
-              backgroundImage: [
-                'linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px)',
-                'linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px)',
-              ].join(','),
-              backgroundSize: '80px 80px',
-            }} />
-
-          {/* Floating orbs */}
-          {[0, 1, 2].map((i) => (
-            <div key={i} className="absolute rounded-full bg-white/5 border border-white/10 animate-float"
-              style={{
-                width: `${50 + i * 30}px`, height: `${50 + i * 30}px`,
-                left: `${12 + i * 22}%`, top: `${18 + i * 22}%`,
-                animationDelay: `${i * 1.3}s`, animationDuration: `${6 + i * 1.5}s`,
-              }} />
-          ))}
-        </div>
 
         <div className="relative max-w-6xl mx-auto px-6 text-center">
           {/* Badge */}
@@ -261,14 +183,14 @@ export default function LandingPage() {
           </div>
 
           {/* Headline */}
-          <h1 className="animate-fadeInUp text-5xl md:text-7xl font-black text-white leading-tight mb-6" style={{ animationDelay: '0.1s' }}>
+          <h1 className="animate-fadeInUp text-5xl md:text-7xl font-black text-white leading-tight mb-6" style={{ animationDelay: '0.1s', textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 1px 4px rgba(0,0,0,0.9)' }}>
             Turn Values Into
             <br />
             <span className="gradient-text">Measurable Results</span>
           </h1>
 
           {/* Sub */}
-          <p className="animate-fadeInUp text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed" style={{ animationDelay: '0.25s' }}>
+          <p className="animate-fadeInUp text-lg md:text-xl text-white max-w-2xl mx-auto mb-10 leading-relaxed" style={{ animationDelay: '0.25s', textShadow: '0 1px 12px rgba(0,0,0,0.9)' }}>
             Credibility Factory Afrique quantifies how well your staff actually live your company values —
             and converts every performance gap into a precise financial loss figure.
           </p>
@@ -420,32 +342,16 @@ export default function LandingPage() {
       {/* ── How It Works ─────────────────────────────────────── */}
       <section id="how-it-works" className="py-28 relative overflow-hidden"
         style={{
-          background: [
-            'radial-gradient(ellipse at 10% 20%,  rgba(163,41,204,.28) 0%, transparent 50%)',
-            'radial-gradient(ellipse at 85% 75%, rgba(0,166,81,.16)   0%, transparent 46%)',
-            'linear-gradient(152deg, #020317 0%, #07093c 25%, #181b8e 55%, #130740 82%, #020317 100%)',
-          ].join(','),
+          background: 'linear-gradient(160deg, #020317 0%, #07093c 25%, #181b8e 55%, #130740 82%, #020317 100%)',
         }}>
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {/* Stroke-only Africa outline — lighter treatment vs hero fill */}
           <div className="absolute inset-0 flex items-center justify-start">
-            <svg
-              viewBox="0 0 100 122"
-              fill="none"
-              stroke="white"
-              strokeWidth="1.5"
-              className="h-[80vh] max-h-[700px] w-auto opacity-[0.06] -translate-x-[15%] flex-shrink-0"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
+            <svg viewBox="0 0 100 122" fill="none" stroke="white" strokeWidth="1.5"
+              className="h-[80vh] max-h-[700px] w-auto opacity-[0.07] -translate-x-[15%] flex-shrink-0"
+              xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M 30,4 C 35,1 38,0 41,0 L 53,2 C 63,5 69,9 71,11 L 73,19 C 79,30 85,38 88,43 L 100,43 C 97,49 94,52 93,54 L 82,64 C 80,72 79,77 79,80 L 73,94 L 65,110 L 51,122 L 42,113 L 34,96 C 37,87 40,83 40,79 L 38,69 L 36,59 C 30,56 25,53 23,53 L 17,53 C 12,50 8,47 7,46 L 0,38 L 12,21 Z" />
             </svg>
           </div>
-          <div className="absolute inset-0 opacity-[0.04]"
-            style={{
-              backgroundImage: 'radial-gradient(circle, rgba(255,255,255,.6) 1px, transparent 1px)',
-              backgroundSize: '40px 40px',
-            }} />
         </div>
 
         <div className="relative max-w-6xl mx-auto px-6">
@@ -508,22 +414,8 @@ export default function LandingPage() {
       {/* ── Final CTA ────────────────────────────────────────── */}
       <section className="py-28 relative overflow-hidden"
         style={{
-          background: [
-            'radial-gradient(ellipse at 85% 10%,  rgba(163,41,204,.30) 0%, transparent 48%)',
-            'radial-gradient(ellipse at 15% 85%, rgba(0,166,81,.18)   0%, transparent 46%)',
-            'radial-gradient(ellipse at 50% 50%, rgba(31,33,146,.42)  0%, transparent 60%)',
-            'linear-gradient(152deg, #020317 0%, #07093c 22%, #181b8e 52%, #130740 80%, #020317 100%)',
-          ].join(','),
+          background: 'linear-gradient(160deg, #020317 0%, #07093c 22%, #181b8e 52%, #130740 80%, #020317 100%)',
         }}>
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute inset-0 opacity-[0.04]"
-            style={{
-              backgroundImage: 'radial-gradient(circle, rgba(255,255,255,.6) 1px, transparent 1px)',
-              backgroundSize: '40px 40px',
-            }} />
-          <div className="absolute -top-32 -left-32 w-96 h-96 bg-white/5 rounded-full animate-morph" />
-          <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-white/5 rounded-full animate-morph animate-float-rev" />
-        </div>
         <div className="relative max-w-3xl mx-auto px-6 text-center">
           <h2 className="reveal text-4xl md:text-5xl font-black text-white mb-6">
             Ready to Discover What Your<br />
