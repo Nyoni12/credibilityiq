@@ -1,0 +1,15 @@
+# This file sits at the REPOSITORY root.
+# On cPanel, if your document root is the repo folder (not /public),
+# this redirects all traffic into the /public subfolder.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # If request is for an existing file/directory, serve it
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Otherwise send to /public/index.php
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
