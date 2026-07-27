@@ -18,6 +18,13 @@ use Illuminate\Support\Facades\Route;
 
 // ── Public ────────────────────────────────────────────────────────────────────
 Route::get('/', fn () => view('landing'))->name('home');
+Route::get('/about',      fn () => view('public.about'))->name('about');
+Route::get('/services',   fn () => view('public.services'))->name('services');
+Route::get('/frameworks', fn () => view('public.frameworks'))->name('frameworks');
+Route::get('/platform',   fn () => view('public.platform'))->name('platform');
+Route::get('/team',       fn () => view('public.team'))->name('team');
+Route::get('/clients',    fn () => view('public.clients'))->name('clients');
+Route::get('/contact',    fn () => view('public.contact'))->name('contact');
 Route::get('/privacy-policy', fn () => view('privacy-policy'))->name('privacy-policy');
 
 Route::get('/sitemap.xml', function () {
