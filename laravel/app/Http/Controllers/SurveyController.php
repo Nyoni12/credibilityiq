@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class SurveyController extends Controller
 {
-    public function show(string $token)
+    public function show(Request $request, string $token)
     {
         $company = Company::where('survey_token', $token)->firstOrFail();
 
@@ -21,6 +21,13 @@ class SurveyController extends Controller
 
         if (!$assessment) {
             return view('survey.closed', compact('company'));
+        }
+
+        // Block repeat submissions from the same IP for this assessment
+        if (SurveyResponse::where('assessment_id', $assessment->id)
+                ->where('ip_address', $request->ip())
+                ->exists()) {
+            return view('survey.already_submitted', compact('company'));
         }
 
         $values = $company->values()->get();
@@ -41,6 +48,13 @@ class SurveyController extends Controller
             ->latest()
             ->firstOrFail();
 
+        // Double-check IP deduplication on submit (guards against race condition on show)
+        if (SurveyResponse::where('assessment_id', $assessment->id)
+                ->where('ip_address', $request->ip())
+                ->exists()) {
+            return view('survey.already_submitted', compact('company'));
+        }
+
         $values = $company->values()->pluck('id')->toArray();
 
         $rules = [];
@@ -52,8 +66,9 @@ class SurveyController extends Controller
         $data = $request->validate($rules);
 
         $response = SurveyResponse::create([
-            'assessment_id'  => $assessment->id,
-            'respondent_role'=> $data['respondent_role'] ?? null,
+            'assessment_id'   => $assessment->id,
+            'respondent_role' => $data['respondent_role'] ?? null,
+            'ip_address'      => $request->ip(),
         ]);
 
         foreach ($data['scores'] as $valueId => $score) {

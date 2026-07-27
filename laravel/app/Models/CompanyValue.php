@@ -8,11 +8,12 @@ class CompanyValue extends Model
 {
     protected $fillable = [
         'company_id', 'name', 'description',
-        'weight_percentage', 'order_position',
+        'weight_percentage', 'financial_weight', 'order_position',
     ];
 
     protected $casts = [
         'weight_percentage' => 'float',
+        'financial_weight'  => 'float',
         'order_position'    => 'integer',
     ];
 

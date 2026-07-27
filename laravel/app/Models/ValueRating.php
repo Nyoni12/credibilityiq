@@ -29,6 +29,6 @@ class ValueRating extends Model
 
     public function getScorePercentAttribute(): float
     {
-        return round(($this->avg_score / 10) * 100, 1);
+        return round(($this->avg_score - 1) / 9 * 100, 1);
     }
 }

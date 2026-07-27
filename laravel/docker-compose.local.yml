@@ -1,0 +1,54 @@
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    container_name: ciq-laravel
+    ports:
+      - "8081:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      APP_NAME: "CredibilityIQ"
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: "http://localhost:8081"
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: credibilityiq
+      DB_USERNAME: ciquser
+      DB_PASSWORD: secret
+      SESSION_DRIVER: file
+      SESSION_SECURE_COOKIE: "false"
+      SUPERADMIN_EMAIL: "admin@credibilityiq.com"
+      SUPERADMIN_PASSWORD: "Admin@2025!"
+      SUPERADMIN_FIRST_NAME: "Super"
+      SUPERADMIN_LAST_NAME: "Admin"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.0
+    container_name: ciq-mysql
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: credibilityiq
+      MYSQL_USER: ciquser
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: rootsecret
+    volumes:
+      - ciq_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uciquser", "-psecret"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  ciq_mysql_data:

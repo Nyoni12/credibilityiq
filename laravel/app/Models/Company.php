@@ -10,12 +10,13 @@ class Company extends Model
     protected $fillable = [
         'name', 'logo_path', 'industry', 'domain',
         'subscription_tier', 'survey_token',
-        'annual_revenue', 'is_active',
+        'annual_revenue', 'is_active', 'assessment_slots',
     ];
 
     protected $casts = [
-        'is_active'      => 'boolean',
-        'annual_revenue' => 'float',
+        'is_active'        => 'boolean',
+        'annual_revenue'   => 'float',
+        'assessment_slots' => 'integer',
     ];
 
     protected static function boot()
@@ -46,6 +47,11 @@ class Company extends Model
     public function latestAssessment()
     {
         return $this->hasOne(Assessment::class)->latestOfMany();
+    }
+
+    public function canCreateAssessment(): bool
+    {
+        return $this->assessments()->count() < ($this->assessment_slots ?? 1);
     }
 
     public function regenerateSurveyToken(): string

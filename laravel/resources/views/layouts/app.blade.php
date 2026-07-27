@@ -4,152 +4,132 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>@yield('title', 'CredibilityIQ') — CredibilityIQ</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-    theme: {
-        extend: {
-            colors: {
-                brand: {
-                    50:'#EEEFFE', 100:'#C8CCF5', 200:'#9DA5EC',
-                    300:'#717FE3', 400:'#4659DA', 500:'#1F2192',
-                    600:'#191B7A', 700:'#131562', 800:'#0D0E4A', 900:'#070831'
-                },
-                accent: { 400:'#BE2CBA', 500:'#A329CC', 600:'#8821A8' },
-                cfa: { 400:'#01AF50', 500:'#00A651', 600:'#008040' }
-            },
-            fontFamily: { sans: ['Inter','system-ui','sans-serif'] }
-        }
-    }
-}
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-<style>
-  [x-cloak] { display: none !important; }
-  .sidebar-link { @apply flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-brand-200 hover:bg-white/10 hover:text-white transition-all duration-150; }
-  .sidebar-link.active { @apply bg-white/15 text-white; }
-</style>
+<title>@yield('title', 'CredibilityIQ') | CredibilityIQ</title>
+<link rel="icon" type="image/png" href="/images/logo.png">
+<link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/app.css">
+<script defer src="/js/alpine.min.js"></script>
 </head>
-<body class="h-full bg-gray-50 font-sans" x-data="{ sidebarOpen: false }">
+<body class="min-h-screen bg-gray-50 font-sans" x-data="{ mobileMenu: false }">
 
-{{-- Mobile overlay --}}
-<div x-show="sidebarOpen" x-cloak @click="sidebarOpen=false"
-     class="fixed inset-0 bg-black/50 z-20 lg:hidden"></div>
+{{-- ── Header ── --}}
+<header class="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
 
-{{-- ─── Sidebar ─────────────────────────────────────────────── --}}
-<aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
-       class="fixed inset-y-0 left-0 z-30 w-64 bg-brand-900 flex flex-col transition-transform duration-300 lg:translate-x-0">
+            {{-- Logo + desktop nav --}}
+            <div class="flex items-center gap-8">
+                <a href="{{ auth()->user()->isSuperAdmin() ? route('admin.dashboard') : route('dashboard') }}">
+                    <img src="{{ asset('images/logo.png') }}" alt="Credibility Factory Afrique" class="h-10 w-auto">
+                </a>
 
-    {{-- Logo --}}
-    <div class="flex items-center gap-3 px-6 py-5 border-b border-white/10">
-        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-400 to-accent-500 flex items-center justify-center text-white font-black text-sm">CIQ</div>
-        <div>
-            <div class="text-white font-bold text-sm leading-tight">CredibilityIQ</div>
-            <div class="text-brand-300 text-xs">{{ auth()->user()->company->name ?? 'SuperAdmin' }}</div>
+                <nav class="hidden md:flex gap-1">
+                    @if(auth()->user()->isSuperAdmin())
+                        @foreach([['Dashboard', route('admin.dashboard'), 'admin.dashboard'], ['Companies', route('admin.companies.index'), 'admin.companies.*'], ['Users', route('admin.users.index'), 'admin.users.*'], ['Support', route('admin.support.index'), 'admin.support.*'], ['Activity Log', route('admin.activity-log'), 'admin.activity-log']] as [$label, $href, $pattern])
+                        <a href="{{ $href }}"
+                           class="px-3 py-2 rounded-md text-sm font-medium transition-colors {{ request()->routeIs($pattern) ? 'bg-brand-500 text-white' : 'text-brand-700 hover:bg-brand-50 hover:text-brand-900' }}">
+                            {{ $label }}
+                        </a>
+                        @endforeach
+                    @else
+                        @foreach([['Dashboard', route('dashboard'), 'dashboard'], ['Values Setup', route('values.index'), 'values.*'], ['Assessments', route('assessments.index'), 'assessments.*'], ['Support', route('support.index'), 'support.*'], ['Activity Log', route('activity-log'), 'activity-log']] as [$label, $href, $pattern])
+                        <a href="{{ $href }}"
+                           class="px-3 py-2 rounded-md text-sm font-medium transition-colors {{ request()->routeIs($pattern) ? 'bg-brand-500 text-white' : 'text-brand-700 hover:bg-brand-50 hover:text-brand-900' }}">
+                            {{ $label }}
+                        </a>
+                        @endforeach
+                    @endif
+                </nav>
+            </div>
+
+            {{-- Right: user info + logout --}}
+            <div class="flex items-center gap-3">
+                <span class="text-gray-600 text-sm hidden sm:block">
+                    {{ auth()->user()->full_name }}
+                    @if(auth()->user()->isSuperAdmin())
+                    <span class="ml-2 bg-accent-100 text-accent-700 text-xs px-2 py-0.5 rounded-full font-semibold">Super Admin</span>
+                    @endif
+                </span>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit"
+                            class="text-sm text-brand-600 hover:text-brand-800 px-3 py-1.5 rounded border border-brand-200 hover:border-brand-400 transition-colors">
+                        Logout
+                    </button>
+                </form>
+
+                {{-- Mobile hamburger --}}
+                <button @click="mobileMenu=!mobileMenu" class="md:hidden p-2 rounded-md text-gray-500 hover:bg-gray-100">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path x-show="!mobileMenu" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                        <path x-show="mobileMenu" x-cloak stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
         </div>
     </div>
 
-    {{-- Nav --}}
-    <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-
+    {{-- Mobile menu --}}
+    <div x-show="mobileMenu" x-cloak class="md:hidden border-t border-gray-100 bg-white px-4 py-3 space-y-1">
         @if(auth()->user()->isSuperAdmin())
-        <p class="px-4 py-1 text-xs font-semibold text-brand-400 uppercase tracking-wider">SuperAdmin</p>
-        <a href="{{ route('admin.dashboard') }}" class="sidebar-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-            Dashboard
-        </a>
-        <a href="{{ route('admin.companies.index') }}" class="sidebar-link {{ request()->routeIs('admin.companies.*') ? 'active' : '' }}">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-            Companies
-        </a>
-        <a href="{{ route('admin.users.index') }}" class="sidebar-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-            Users
-        </a>
+            @foreach([['Dashboard', route('admin.dashboard'), 'admin.dashboard'], ['Companies', route('admin.companies.index'), 'admin.companies.*'], ['Users', route('admin.users.index'), 'admin.users.*'], ['Support', route('admin.support.index'), 'admin.support.*'], ['Activity Log', route('admin.activity-log'), 'admin.activity-log']] as [$label, $href, $pattern])
+            <a href="{{ $href }}" class="block px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs($pattern) ? 'bg-brand-500 text-white' : 'text-brand-700 hover:bg-brand-50' }}">{{ $label }}</a>
+            @endforeach
         @else
-        <p class="px-4 py-1 text-xs font-semibold text-brand-400 uppercase tracking-wider">Main</p>
-        <a href="{{ route('dashboard') }}" class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-            Dashboard
-        </a>
-        <a href="{{ route('assessments.index') }}" class="sidebar-link {{ request()->routeIs('assessments.*') ? 'active' : '' }}">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-            Assessments
-        </a>
-        <p class="px-4 py-1 mt-3 text-xs font-semibold text-brand-400 uppercase tracking-wider">Setup</p>
-        <a href="{{ route('values.index') }}" class="sidebar-link {{ request()->routeIs('values.*') ? 'active' : '' }}">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
-            Company Values
-        </a>
+            @foreach([['Dashboard', route('dashboard'), 'dashboard'], ['Values Setup', route('values.index'), 'values.*'], ['Assessments', route('assessments.index'), 'assessments.*'], ['Support', route('support.index'), 'support.*'], ['Activity Log', route('activity-log'), 'activity-log']] as [$label, $href, $pattern])
+            <a href="{{ $href }}" class="block px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs($pattern) ? 'bg-brand-500 text-white' : 'text-brand-700 hover:bg-brand-50' }}">{{ $label }}</a>
+            @endforeach
         @endif
-
-    </nav>
-
-    {{-- User footer --}}
-    <div class="border-t border-white/10 p-4">
-        <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-accent-400 to-brand-400 flex items-center justify-center text-white text-xs font-bold">
-                {{ auth()->user()->initials }}
-            </div>
-            <div class="flex-1 min-w-0">
-                <div class="text-white text-xs font-medium truncate">{{ auth()->user()->full_name }}</div>
-                <div class="text-brand-400 text-xs truncate">{{ auth()->user()->email }}</div>
-            </div>
-        </div>
-        <form method="POST" action="{{ route('logout') }}" class="mt-3">
-            @csrf
-            <button type="submit" class="w-full text-left sidebar-link text-red-300 hover:text-red-100 hover:bg-red-900/30">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-                Sign out
-            </button>
-        </form>
     </div>
-</aside>
+</header>
 
-{{-- ─── Main content ────────────────────────────────────────── --}}
-<div class="lg:pl-64 flex flex-col min-h-screen">
-
-    {{-- Top bar --}}
-    <header class="sticky top-0 z-10 bg-white border-b border-gray-200 flex items-center justify-between px-4 lg:px-8 h-14">
-        <button @click="sidebarOpen=!sidebarOpen" class="lg:hidden p-2 rounded-md text-gray-500 hover:bg-gray-100">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
-        <h1 class="text-base font-semibold text-gray-800">@yield('page-title', 'Dashboard')</h1>
-        <div class="flex items-center gap-3">
-            <a href="{{ route('profile') }}" class="w-8 h-8 rounded-full bg-gradient-to-br from-accent-400 to-brand-400 flex items-center justify-center text-white text-xs font-bold hover:opacity-90 transition-opacity">
-                {{ auth()->user()->initials }}
-            </a>
+{{-- Platform announcement banner --}}
+@php $announcement = \App\Models\Setting::get('platform_announcement', ''); @endphp
+@if($announcement)
+<div x-data="{ show: true }" x-show="show" x-cloak
+     class="bg-yellow-50 border-b border-yellow-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-2 text-sm text-yellow-800">
+            <svg class="w-4 h-4 shrink-0 text-yellow-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
+            <span>{{ $announcement }}</span>
         </div>
-    </header>
+        <button @click="show=false" class="text-yellow-500 hover:text-yellow-700 shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+    </div>
+</div>
+@endif
 
-    {{-- Flash messages --}}
-    @if(session('success'))
-    <div x-data="{ show: true }" x-show="show" x-init="setTimeout(()=>show=false,4000)"
-         class="mx-4 lg:mx-8 mt-4 flex items-center gap-3 px-4 py-3 bg-cfa-50 border border-cfa-200 text-cfa-800 rounded-lg text-sm">
-        <svg class="w-4 h-4 text-cfa-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+{{-- Flash messages --}}
+@if(session('success'))
+<div x-data="{ show: true }" x-show="show" x-init="setTimeout(()=>show=false,4000)" x-cloak
+     class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+    <div class="flex items-center gap-3 px-4 py-3 bg-cfa-50 border border-cfa-200 text-cfa-800 rounded-lg text-sm">
+        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
         {{ session('success') }}
     </div>
-    @endif
-    @if(session('error'))
-    <div x-data="{ show: true }" x-show="show" x-init="setTimeout(()=>show=false,5000)"
-         class="mx-4 lg:mx-8 mt-4 flex items-center gap-3 px-4 py-3 bg-red-50 border border-red-200 text-red-800 rounded-lg text-sm">
-        <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+</div>
+@endif
+@if(session('error'))
+<div x-data="{ show: true }" x-show="show" x-init="setTimeout(()=>show=false,5000)" x-cloak
+     class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+    <div class="flex items-center gap-3 px-4 py-3 bg-red-50 border border-red-200 text-red-800 rounded-lg text-sm">
+        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         {{ session('error') }}
     </div>
-    @endif
-
-    {{-- Page content --}}
-    <main class="flex-1 p-4 lg:p-8">
-        @yield('content')
-    </main>
-
-    <footer class="px-8 py-4 text-xs text-gray-400 border-t border-gray-100 text-center">
-        © {{ date('Y') }} Credibility Factory Afrique · CredibilityIQ Platform
-    </footer>
 </div>
+@endif
+
+{{-- Main content --}}
+<main class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+    @yield('content')
+</main>
+
+<footer class="flex items-center justify-center gap-4 text-xs text-gray-400 py-4 border-t border-gray-100 mt-8">
+    <img src="{{ asset('images/logo.png') }}" alt="" class="h-5 w-auto opacity-40">
+    <span>&copy; {{ date('Y') }} Corporate Credibility Scorecard Platform</span>
+    <a href="{{ route('privacy-policy') }}" class="hover:text-gray-600 hover:underline transition-colors">Privacy Policy</a>
+</footer>
 
 @stack('scripts')
 </body>

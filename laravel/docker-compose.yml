@@ -1,0 +1,45 @@
+services:
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: credibilityiq
+      MYSQL_USER: ciquser
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: rootsecret
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uciquser", "-psecret"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    volumes:
+      - .:/var/www/html
+      - vendor:/var/www/html/vendor
+    env_file:
+      - .env
+    depends_on:
+      mysql:
+        condition: service_healthy
+    command: >
+      bash -c "
+        composer install --no-interaction --prefer-dist &&
+        php artisan migrate --force --no-interaction &&
+        php artisan db:seed --force --no-interaction &&
+        mkdir -p /var/www/html/storage/logs /var/www/html/storage/framework/cache /var/www/html/storage/framework/sessions /var/www/html/storage/framework/views /var/www/html/bootstrap/cache &&
+        chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache &&
+        apache2-foreground
+      "
+
+volumes:
+  mysql_data:
+  vendor:

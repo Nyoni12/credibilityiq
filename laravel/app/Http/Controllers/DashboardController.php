@@ -15,14 +15,16 @@ class DashboardController extends Controller
             return redirect()->route('login')->with('error', 'No company linked to your account.');
         }
 
-        $assessments       = $company->assessments()->with('valueRatings.companyValue')->get();
-        $latestClosed      = $assessments->where('status', 'closed')->first();
-        $totalAssessments  = $assessments->count();
-        $openAssessments   = $assessments->where('status', 'open')->count();
-        $valuesCount       = $company->values()->count();
+        $assessments      = $company->assessments()->withCount('surveyResponses')->with('valueRatings.companyValue')->get();
+        $latestClosed     = $assessments->where('status', 'closed')->first();
+        $totalAssessments = $assessments->count();
+        $openAssessments  = $assessments->where('status', 'open')->count();
+        $valuesCount      = $company->values()->count();
+        $totalResponses   = $assessments->sum('survey_responses_count');
+        $surveyToken      = $company->survey_token;
 
         $trendData = $assessments->where('status', 'closed')
-            ->take(6)->reverse()->values()
+            ->sortBy('created_at')->take(6)->values()
             ->map(fn ($a) => [
                 'label' => $a->created_at->format('M Y'),
                 'score' => $a->overall_score ?? 0,
@@ -30,7 +32,8 @@ class DashboardController extends Controller
 
         return view('dashboard.index', compact(
             'company', 'latestClosed', 'assessments',
-            'totalAssessments', 'openAssessments', 'valuesCount', 'trendData'
+            'totalAssessments', 'openAssessments', 'valuesCount',
+            'totalResponses', 'surveyToken', 'trendData'
         ));
     }
 }

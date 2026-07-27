@@ -44,3 +44,14 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Laravel runtime / generated files
+laravel/.env
+laravel/storage/app/reports/
+laravel/storage/app/public/logos/
+laravel/storage/logs/
+laravel/bootstrap/cache/
+
+# Exports / backups (sensitive)
+*.sql
+*.zip

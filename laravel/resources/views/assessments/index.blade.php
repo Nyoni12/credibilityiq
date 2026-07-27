@@ -6,11 +6,17 @@
 <div class="space-y-6" x-data="{ showCreate: false }">
 
     {{-- Header row --}}
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between gap-4">
         <p class="text-sm text-gray-500">
             Run surveys, collect stakeholder ratings, and generate your credibility scorecard.
         </p>
-        @if($company->values()->count() > 0)
+        @if(!$canCreate)
+        <div class="flex items-center gap-2 bg-gray-100 border border-gray-200 text-gray-500 font-semibold px-5 py-2.5 rounded-xl text-sm cursor-not-allowed select-none"
+             title="Assessment limit reached. Contact your administrator to unlock a new assessment">
+            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            Assessment Locked
+        </div>
+        @elseif($company->values()->count() > 0)
         <button @click="showCreate=true"
                 class="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition-all hover:shadow-lg hover:shadow-brand-500/30">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
@@ -24,6 +30,18 @@
         </a>
         @endif
     </div>
+
+    {{-- Slot-limit notice --}}
+    @unless($canCreate)
+    <div class="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-2xl px-5 py-4">
+        <svg class="w-5 h-5 text-amber-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        <div>
+            <p class="text-sm font-semibold text-amber-800">Assessment limit reached</p>
+            @php $supportEmail = \App\Models\Setting::get('support_email', 'support@credibilityfactory.com'); @endphp
+            <p class="text-xs text-amber-600 mt-0.5">You have used all {{ $company->assessment_slots }} of your allocated assessment{{ $company->assessment_slots > 1 ? 's' : '' }}. Contact us at <a href="mailto:{{ $supportEmail }}" class="underline font-semibold">{{ $supportEmail }}</a> to unlock a new one.</p>
+        </div>
+    </div>
+    @endunless
 
     {{-- Survey link banner --}}
     @if($assessments->where('status','open')->isNotEmpty())
@@ -66,9 +84,13 @@
         </div>
         <h3 class="font-semibold text-gray-700 mb-2">No assessments yet</h3>
         <p class="text-gray-400 text-sm mb-5">Create your first assessment to start collecting stakeholder ratings.</p>
+        @if($canCreate)
         <button @click="showCreate=true" class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition-all">
             Create First Assessment
         </button>
+        @else
+        <p class="text-sm text-amber-600 font-medium">Assessment locked. Contact your administrator to unlock.</p>
+        @endif
     </div>
     @else
     <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">

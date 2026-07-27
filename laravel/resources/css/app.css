@@ -1,0 +1,26 @@
+/* Inter font — self-hosted subset */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url('/fonts/inter-var.woff2') format('woff2');
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Alpine cloak */
+[x-cloak] { display: none !important; }
+
+/* Smooth scrolling for all anchor links */
+html { scroll-behavior: smooth; }
+
+/* Thin scrollbar on webkit */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 9999px; }
+
+/* Responsive table wrapper utility */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }

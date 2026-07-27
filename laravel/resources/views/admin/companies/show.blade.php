@@ -27,7 +27,7 @@
     </div>
 
     {{-- Tabs --}}
-    <div class="flex items-center gap-1 bg-gray-100 rounded-xl p-1 w-fit">
+    <div class="flex items-center gap-1 bg-gray-100 rounded-xl p-1 overflow-x-auto">
         @foreach(['info' => 'Company Info', 'values' => 'Values ('.count($company->values).')', 'assessments' => 'Assessments ('.count($company->assessments).')', 'users' => 'Users ('.count($company->users).')'] as $t => $label)
         <button @click="tab='{{ $t }}'" :class="tab==='{{ $t }}' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-700'"
                 class="px-4 py-2 rounded-lg text-sm font-medium transition-all">{{ $label }}</button>
@@ -99,7 +99,8 @@
     {{-- Values tab --}}
     <div x-show="tab==='values'" x-cloak>
         <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-            <table class="w-full text-sm">
+            <div class="overflow-x-auto">
+            <table class="w-full text-sm min-w-[480px]">
                 <thead class="bg-gray-50 border-b border-gray-100">
                     <tr>
                         <th class="text-left text-xs font-semibold text-gray-500 px-6 py-3">Value</th>
@@ -118,13 +119,53 @@
                     @endforelse
                 </tbody>
             </table>
+            </div>{{-- /overflow-x-auto --}}
         </div>
     </div>
 
     {{-- Assessments tab --}}
     <div x-show="tab==='assessments'" x-cloak>
+
+        {{-- Assessment slot control --}}
+        @php
+            $used  = $company->assessments->count();
+            $slots = $company->assessment_slots ?? 1;
+            $atLimit = $used >= $slots;
+        @endphp
+        <div class="bg-white rounded-2xl border {{ $atLimit ? 'border-amber-200' : 'border-gray-200' }} p-5 mb-4 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+                <div class="w-11 h-11 rounded-xl flex items-center justify-center {{ $atLimit ? 'bg-amber-50' : 'bg-green-50' }}">
+                    @if($atLimit)
+                    <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                    @else
+                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
+                    @endif
+                </div>
+                <div>
+                    <p class="text-sm font-bold text-gray-900">Assessment Slots</p>
+                    <p class="text-xs text-gray-500 mt-0.5">
+                        Used <span class="font-semibold {{ $atLimit ? 'text-amber-600' : 'text-gray-700' }}">{{ $used }}</span>
+                        of <span class="font-semibold text-gray-700">{{ $slots }}</span> allocated
+                        @if($atLimit)
+                        <span class="text-amber-600 font-medium">(limit reached)</span>
+                        @endif
+                    </p>
+                </div>
+            </div>
+            <form method="POST" action="{{ route('admin.companies.grant-slot', $company) }}">
+                @csrf
+                <button type="submit"
+                        onclick="return confirm('Grant {{ $company->name }} one additional assessment slot?')"
+                        class="inline-flex items-center gap-2 {{ $atLimit ? 'bg-brand-500 hover:bg-brand-600' : 'bg-gray-100 hover:bg-gray-200 text-gray-600' }} text-white font-semibold px-4 py-2 rounded-xl text-sm transition-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                    Grant +1 Assessment
+                </button>
+            </form>
+        </div>
+
         <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-            <table class="w-full text-sm">
+            <div class="overflow-x-auto">
+            <table class="w-full text-sm min-w-[480px]">
                 <thead class="bg-gray-50 border-b border-gray-100">
                     <tr>
                         <th class="text-left text-xs font-semibold text-gray-500 px-6 py-3">Title</th>
@@ -158,13 +199,15 @@
                     @endforelse
                 </tbody>
             </table>
+            </div>{{-- /overflow-x-auto --}}
         </div>
     </div>
 
     {{-- Users tab --}}
     <div x-show="tab==='users'" x-cloak>
         <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden mb-4">
-            <table class="w-full text-sm">
+            <div class="overflow-x-auto">
+            <table class="w-full text-sm min-w-[420px]">
                 <thead class="bg-gray-50 border-b border-gray-100">
                     <tr>
                         <th class="text-left text-xs font-semibold text-gray-500 px-6 py-3">Name</th>
@@ -192,6 +235,7 @@
                     @endforelse
                 </tbody>
             </table>
+            </div>{{-- /overflow-x-auto --}}
         </div>
 
         {{-- Add user form --}}
