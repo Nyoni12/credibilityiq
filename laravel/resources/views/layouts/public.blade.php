@@ -387,8 +387,7 @@ footer{background:#05061F;border-top:1px solid rgba(255,255,255,0.06);padding:40
       <li><a href="{{ route('frameworks') }}" class="{{ request()->routeIs('frameworks') ? 'is-active' : '' }}">Frameworks</a></li>
       <li><a href="{{ route('platform') }}" class="nav-ciq {{ request()->routeIs('platform') ? 'is-active' : '' }}">CredibilityIQ</a></li>
       <li><a href="{{ route('team') }}" class="{{ request()->routeIs('team') ? 'is-active' : '' }}">Team</a></li>
-      <li><a href="{{ route('clients') }}" class="{{ request()->routeIs('clients') ? 'is-active' : '' }}">Clients</a></li>
-      <li><a href="{{ route('contact') }}" class="nav-cta">Get in Touch</a></li>
+<li><a href="{{ route('contact') }}" class="nav-cta">Get in Touch</a></li>
     </ul>
     <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
@@ -398,8 +397,7 @@ footer{background:#05061F;border-top:1px solid rgba(255,255,255,0.06);padding:40
     <a href="{{ route('frameworks') }}">Frameworks</a>
     <a href="{{ route('platform') }}">CredibilityIQ Platform</a>
     <a href="{{ route('team') }}">Our Team</a>
-    <a href="{{ route('clients') }}">Our Clients</a>
-    <a href="{{ route('contact') }}">Get in Touch</a>
+<a href="{{ route('contact') }}">Get in Touch</a>
   </div>
 </nav>
 
