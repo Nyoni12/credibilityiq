@@ -214,27 +214,6 @@
   </div>
 </section>
 
-<!-- GEO STRIP -->
-<div class="geo-strip" aria-hidden="true">
-  <div class="geo-strip-inner">
-    <span class="geo-item">Zimbabwe</span>
-    <span class="geo-dot"></span>
-    <span class="geo-item">Kenya</span>
-    <span class="geo-dot"></span>
-    <span class="geo-item">Tanzania</span>
-    <span class="geo-rule"></span>
-    <span class="geo-item">Executive Training</span>
-    <span class="geo-dot"></span>
-    <span class="geo-item">Strategy Facilitation</span>
-    <span class="geo-dot"></span>
-    <span class="geo-item">Culture Change</span>
-    <span class="geo-dot"></span>
-    <span class="geo-item">Credibility Assessment</span>
-    <span class="geo-dot"></span>
-    <span class="geo-item">Leadership Development</span>
-  </div>
-</div>
-
 <!-- ABOUT TEASER -->
 <section class="section" id="about-teaser">
   <div class="container">
