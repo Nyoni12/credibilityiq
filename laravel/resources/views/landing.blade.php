@@ -193,54 +193,45 @@
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-wm">CREDIBILITY</div>
-  <div class="hero-orb"></div>
-  <div class="hero-inner">
-    <div class="hero-content">
-      <div class="hero-eyebrow">Africa's Authority on Credibility</div>
-      <h1 class="display">The Strongest<br>Currency You<br>Can Own Is<br><em class="gt">Your Credibility.</em></h1>
-      <p class="hero-lead">Credibility Factory Afrique is the only organisation in Zimbabwe and on the African continent that has developed and mastered the art and science of credibility. We build credible people, credible teams, and credible institutions.</p>
-      <div class="hero-actions">
-        <a href="{{ route('services') }}" class="btn-primary">Explore Our Services</a>
-        <a href="{{ route('contact') }}" class="btn-outline">Book a Consultation</a>
+  <div class="hero-inner-new">
+    <div class="hero-kicker"><span class="hero-kicker-rule"></span>Africa's Authority on Credibility</div>
+    <div class="hero-headline-row">
+      <h1 class="display hero-h1">The Strongest<br>Currency You<br>Can Own Is<br><em class="gt">Your Credibility.</em></h1>
+      <div class="hero-side-panel">
+        <p class="hero-lead">Credibility Factory Afrique is the only organisation in Zimbabwe and on the African continent that has developed and mastered the art and science of credibility. We build credible people, credible teams, and credible institutions.</p>
+        <div class="hero-actions">
+          <a href="{{ route('services') }}" class="btn-primary">Explore Our Services</a>
+          <a href="{{ route('contact') }}" class="btn-outline">Book a Consultation</a>
+        </div>
       </div>
     </div>
-    <div class="hero-stats">
-      <div class="stat-card"><div class="stat-num">35<span>+</span></div><div class="stat-label">Years of collective executive leadership experience</div></div>
-      <div class="stat-card"><div class="stat-num">8<span>+</span></div><div class="stat-label">Prestigious client organisations trained</div></div>
-      <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">Countries served: Zimbabwe, Kenya &amp; Tanzania</div></div>
-      <div class="stat-card"><div class="stat-num">6</div><div class="stat-label">Proprietary credibility frameworks &amp; tools</div></div>
+    <div class="hero-strip">
+      <div class="hero-strip-item"><span class="hero-strip-num">35+</span><span class="hero-strip-label">Years collective experience</span></div>
+      <div class="hero-strip-item"><span class="hero-strip-num">ZW · KE · TZ</span><span class="hero-strip-label">Countries we serve</span></div>
+      <div class="hero-strip-item"><span class="hero-strip-num">12</span><span class="hero-strip-label">Credibility building blocks</span></div>
+      <div class="hero-strip-item"><span class="hero-strip-num">6</span><span class="hero-strip-label">Proprietary programmes</span></div>
     </div>
   </div>
 </section>
 
-<!-- TICKER -->
-<div class="about-strip" aria-hidden="true">
-  <div class="ticker-track">
-    <span class="ticker-item"><span class="ticker-sep"></span>Honesty Without Offense</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Trustworthiness</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Accountability</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Responsibility</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Hard Work</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Fairness</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Empathy</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Humility</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Respect</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Reputation</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Integrity</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Teamwork</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Honesty Without Offense</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Trustworthiness</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Accountability</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Responsibility</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Hard Work</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Fairness</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Empathy</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Humility</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Respect</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Reputation</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Integrity</span>
-    <span class="ticker-item"><span class="ticker-sep"></span>Teamwork</span>
+<!-- GEO STRIP -->
+<div class="geo-strip" aria-hidden="true">
+  <div class="geo-strip-inner">
+    <span class="geo-item">Zimbabwe</span>
+    <span class="geo-dot"></span>
+    <span class="geo-item">Kenya</span>
+    <span class="geo-dot"></span>
+    <span class="geo-item">Tanzania</span>
+    <span class="geo-rule"></span>
+    <span class="geo-item">Executive Training</span>
+    <span class="geo-dot"></span>
+    <span class="geo-item">Strategy Facilitation</span>
+    <span class="geo-dot"></span>
+    <span class="geo-item">Culture Change</span>
+    <span class="geo-dot"></span>
+    <span class="geo-item">Credibility Assessment</span>
+    <span class="geo-dot"></span>
+    <span class="geo-item">Leadership Development</span>
   </div>
 </div>
 
@@ -256,7 +247,6 @@
       </div>
       <div class="reveal-right">
         <div class="about-card">
-          <div class="about-card-wm">CFA</div>
           <div class="about-card-eyebrow">Our Mission</div>
           <h3>Deploying Credibility Values Across Every Value Chain</h3>
           <p>Founded by Christopher Sithole-Kushata, the pioneering voice on Personal Credibility and Institutional Integrity in Zimbabwe and Southern Africa, Credibility Factory Afrique operates at the intersection of strategy, culture, integrity, and human behaviour.</p>
@@ -272,57 +262,81 @@
 
 <!-- BUILDING BLOCKS -->
 <section class="section blocks-section" id="building-blocks">
-  <div class="blocks-wm">CREDIBILITY</div>
   <div class="container">
-    <div class="blocks-header reveal">
-      <p class="eyebrow">The Foundation</p>
-      <h2 class="display">The 12 CFA Credibility Building Blocks</h2>
-      <p style="color:rgba(255,255,255,0.48);max-width:540px;margin:16px auto 0;font-size:0.95rem;">Every training, workshop, and scorecard we deliver is anchored in these twelve non-negotiable pillars of credible people and credible organisations.</p>
-    </div>
-    <div class="blocks-grid">
-      <div class="block-item reveal"><span class="block-num">01</span><span class="block-name">Honesty Without Offense</span></div>
-      <div class="block-item reveal reveal-delay-1"><span class="block-num">02</span><span class="block-name">Trustworthiness</span></div>
-      <div class="block-item reveal reveal-delay-2"><span class="block-num">03</span><span class="block-name">Accountability</span></div>
-      <div class="block-item reveal reveal-delay-3"><span class="block-num">04</span><span class="block-name">Responsibility</span></div>
-      <div class="block-item reveal"><span class="block-num">05</span><span class="block-name">Hard Work</span></div>
-      <div class="block-item reveal reveal-delay-1"><span class="block-num">06</span><span class="block-name">Fairness</span></div>
-      <div class="block-item reveal reveal-delay-2"><span class="block-num">07</span><span class="block-name">Empathy</span></div>
-      <div class="block-item reveal reveal-delay-3"><span class="block-num">08</span><span class="block-name">Humility</span></div>
-      <div class="block-item reveal"><span class="block-num">09</span><span class="block-name">Respect for Self &amp; Others</span></div>
-      <div class="block-item reveal reveal-delay-1"><span class="block-num">10</span><span class="block-name">Reputation</span></div>
-      <div class="block-item reveal reveal-delay-2"><span class="block-num">11</span><span class="block-name">Integrity</span></div>
-      <div class="block-item reveal reveal-delay-3"><span class="block-num">12</span><span class="block-name">Teamwork</span></div>
+    <div class="blocks-manifesto">
+      <div class="reveal-left">
+        <p class="eyebrow">The Foundation</p>
+        <h2 class="display" style="margin-top:14px;color:white;line-height:1.08;">The 12 CFA<br>Credibility<br>Building Blocks</h2>
+        <p style="color:rgba(255,255,255,0.42);margin-top:20px;font-size:0.88rem;line-height:1.8;">Every training, workshop, and scorecard we deliver is anchored in these twelve non-negotiable pillars of credible people and credible organisations.</p>
+        <a href="{{ route('frameworks') }}" class="btn-outline" style="margin-top:32px;display:inline-flex;">Our Frameworks &rarr;</a>
+      </div>
+      <div>
+        <div class="block-row reveal"><span class="block-row-num">01</span><span class="block-row-name">Honesty Without Offense</span></div>
+        <div class="block-row reveal"><span class="block-row-num">02</span><span class="block-row-name">Trustworthiness</span></div>
+        <div class="block-row reveal"><span class="block-row-num">03</span><span class="block-row-name">Accountability</span></div>
+        <div class="block-row reveal"><span class="block-row-num">04</span><span class="block-row-name">Responsibility</span></div>
+        <div class="block-row reveal"><span class="block-row-num">05</span><span class="block-row-name">Hard Work</span></div>
+        <div class="block-row reveal"><span class="block-row-num">06</span><span class="block-row-name">Fairness</span></div>
+        <div class="block-row reveal"><span class="block-row-num">07</span><span class="block-row-name">Empathy</span></div>
+        <div class="block-row reveal"><span class="block-row-num">08</span><span class="block-row-name">Humility</span></div>
+        <div class="block-row reveal"><span class="block-row-num">09</span><span class="block-row-name">Respect for Self &amp; Others</span></div>
+        <div class="block-row reveal"><span class="block-row-num">10</span><span class="block-row-name">Reputation</span></div>
+        <div class="block-row reveal"><span class="block-row-num">11</span><span class="block-row-name">Integrity</span></div>
+        <div class="block-row reveal"><span class="block-row-num">12</span><span class="block-row-name">Teamwork</span></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES TEASER -->
+<!-- SERVICES -->
 <section class="section services-section" id="services-teaser">
   <div class="container">
     <div class="services-intro">
       <p class="eyebrow reveal">What We Offer</p>
-      <h2 class="display reveal" style="margin-top:12px;">It's a Journey, Not a One-Day Workshop</h2>
-      <p class="lead reveal" style="margin-top:16px;">Our programmes range from executive clinics to full-scale culture transformation engagements. Every service is customised to your organisation's context and underpinned by our proprietary frameworks.</p>
+      <h2 class="display reveal" style="margin-top:12px;">It's a Journey, Not<br>a One-Day Workshop</h2>
+      <p class="lead reveal" style="margin-top:16px;max-width:560px;">Our programmes range from executive clinics to full-scale culture transformation engagements — every one customised to your organisation's context.</p>
     </div>
-    <div class="services-grid">
-      <div class="svc-card reveal"><div class="svc-header"><div class="svc-badge">01</div><div><div class="svc-num">Service 01</div><div class="svc-title">Credibility Clinics for Executives</div></div></div><div class="svc-body"><p class="svc-desc">Designed specifically for senior leaders and C-suite executives, this intensive clinic sharpens personal performance, organisational influence, market share, and profitability, all anchored in the 6 Corporate Credibility Imperatives&reg;. Executives work through the Personal Credibility Scorecard and the Corporate Credibility Scorecard to understand precisely where they and their organisation sit on the Credibility Life Cycle.</p><ul class="svc-outcomes"><li>Executives leave with a quantified Personal Credibility Score and a clear gap analysis</li><li>Leaders gain the tools to execute strategy using internally generated credibility evidence</li><li>Improved organisational influence, stakeholder trust, and competitive positioning</li><li>Practical action plans to advance along the Credibility Life Cycle</li></ul><span class="svc-for">For: Senior Executives &amp; C-Suite Leaders</span></div></div>
-      <div class="svc-card reveal reveal-delay-1"><div class="svc-header"><div class="svc-badge">02</div><div><div class="svc-num">Service 02</div><div class="svc-title">Corporate Strategy — Values Alignment Sessions</div></div></div><div class="svc-body"><p class="svc-desc">Designed to kick-start or reset strategy formulation, this programme addresses one of the most pervasive failures in African organisations: the disconnect between stated strategy and lived values. Using the Credibility Flywheel&reg; Framework, we map the gaps between your Strategy Pillars and your company's actual values, then provide a practical roadmap to close those execution slippages and position your organisation for unfair competitive advantage.</p><ul class="svc-outcomes"><li>A clear visual map of Strategy-Values gaps specific to your organisation</li><li>A practical, sequenced action plan to close strategy-execution slippages</li><li>Leadership alignment around a shared credibility-based strategy narrative</li><li>Monetised Strategy-Values link for sustainable market differentiation</li></ul><span class="svc-for">For: Executive Teams, Strategy Committees &amp; Boards</span></div></div>
-      <div class="svc-card reveal"><div class="svc-header"><div class="svc-badge">03</div><div><div class="svc-num">Service 03</div><div class="svc-title">Culture Change Training Sessions</div></div></div><div class="svc-body"><p class="svc-desc">For organisations in motion, undergoing restructuring, rapid growth, merger activity, or a deliberate cultural reset, this programme introduces and deepens a desired culture shift, anchored on the Credibility Life-Cycle&reg; Framework. Both the Flywheel&reg; and the Life Cycle&reg; models are deployed to identify practical steps that close execution slippages and align strategic pillars with employee and stakeholder expectations.</p><ul class="svc-outcomes"><li>A diagnosed current-state culture map using the Credibility Life Cycle&reg;</li><li>A co-created target culture profile aligned to strategy and values</li><li>Measurable culture KPIs tied to Scalability, Sustainability, and Profitability</li><li>Embedded change champions equipped to sustain the culture shift</li></ul><span class="svc-for">For: All Staff Levels, HR-led, Board-endorsed</span></div></div>
+    <div class="svc-list">
+      <div class="svc-list-item reveal">
+        <span class="svc-list-num">01</span>
+        <div>
+          <div class="svc-list-title">Credibility Clinics for Executives</div>
+          <p class="svc-list-desc">Intensive clinics for C-suite and senior leaders, working through the Personal and Corporate Credibility Scorecards anchored in the 6 Corporate Credibility Imperatives®. Executives leave with a quantified score, a gap analysis, and a clear action plan.</p>
+          <span class="svc-list-for">For: Senior Executives &amp; C-Suite Leaders</span>
+        </div>
+        <a href="{{ route('services') }}" class="svc-list-link">Details &rarr;</a>
+      </div>
+      <div class="svc-list-item reveal reveal-delay-1">
+        <span class="svc-list-num">02</span>
+        <div>
+          <div class="svc-list-title">Corporate Strategy — Values Alignment</div>
+          <p class="svc-list-desc">Using the Credibility Flywheel® Framework to map and close the gap between stated strategy and lived values, positioning your organisation for unfair competitive advantage through measurable credibility evidence.</p>
+          <span class="svc-list-for">For: Executive Teams, Strategy Committees &amp; Boards</span>
+        </div>
+        <a href="{{ route('services') }}" class="svc-list-link">Details &rarr;</a>
+      </div>
+      <div class="svc-list-item reveal reveal-delay-2">
+        <span class="svc-list-num">03</span>
+        <div>
+          <div class="svc-list-title">Culture Change Training Sessions</div>
+          <p class="svc-list-desc">For organisations undergoing restructuring, growth, or merger activity — embedding a deliberate culture shift anchored on the Credibility Life-Cycle® and Flywheel® models, with measurable KPIs tied to scalability and profitability.</p>
+          <span class="svc-list-for">For: All Staff Levels, HR-led, Board-endorsed</span>
+        </div>
+        <a href="{{ route('services') }}" class="svc-list-link">Details &rarr;</a>
+      </div>
     </div>
-    <div style="text-align:center;margin-top:40px;">
+    <div style="margin-top:48px;">
       <a href="{{ route('services') }}" class="btn-primary">View All Services &rarr;</a>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="cta-section" style="position:relative;overflow:hidden;">
-  <div class="cta-orb cta-orb-1"></div>
-  <div class="cta-orb cta-orb-2"></div>
+<section class="cta-section">
   <div class="container" style="position:relative;z-index:1;">
-    <p class="eyebrow" style="color:rgba(255,255,255,0.6);display:flex;justify-content:center;margin-bottom:16px;">Start Your Credibility Journey</p>
+    <p class="eyebrow" style="color:rgba(255,255,255,0.5);display:flex;justify-content:center;margin-bottom:16px;">Start Your Credibility Journey</p>
     <h2 class="display">Ready to Build the Most<br>Valuable Currency You Own?</h2>
-    <p>Whether you're an executive seeking a personal credibility clinic, an organisation undergoing culture change, or a team that needs its strategy and values aligned, we have a programme built for you.</p>
+    <p>Whether you're an executive seeking a personal credibility clinic, an organisation undergoing culture change, or a team that needs its strategy and values aligned — we have a programme built for you.</p>
     <div class="cta-btns">
       <a href="{{ route('contact') }}" class="btn-white">Book a Consultation</a>
       <a href="{{ route('services') }}" class="btn-ghost-white">Explore Our Services</a>
