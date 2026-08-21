@@ -6,6 +6,9 @@
 <meta name="theme-color" content="#1F2192">
 <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
 <link rel="apple-touch-icon" href="{{ asset('images/logo.png') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <title>@yield('title', "Credibility Factory Afrique | Africa's Authority on Credibility")</title>
 
@@ -53,7 +56,7 @@
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:var(--off-white);color:var(--text);line-height:1.65;overflow-x:hidden}
+body{font-family:"DM Sans","Segoe UI",system-ui,-apple-system,sans-serif;background:var(--off-white);color:var(--text);line-height:1.65;overflow-x:hidden}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 button{cursor:pointer;border:none;background:none;font:inherit}
@@ -233,11 +236,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(7,8,49,0.97)
 .cred-tag{font-size:0.72rem;font-weight:600;background:var(--border);color:var(--text-muted);padding:3px 10px;border-radius:10px}
 
 /* CTA */
-.cta-section{background:linear-gradient(150deg,#04051e 0%,#0d0f52 55%,#04051e 100%);color:white;text-align:center;padding:100px 0;position:relative;overflow:hidden}
-.cta-section::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
-.cta-section h2{color:white;max-width:700px;margin:0 auto 20px;position:relative;z-index:1}
-.cta-section p{color:rgba(255,255,255,0.7);max-width:500px;margin:0 auto 40px;position:relative;z-index:1}
-.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.cta-section{background:linear-gradient(150deg,#04051e 0%,#0d0f52 55%,#04051e 100%);color:white;text-align:left;padding:100px 0;position:relative;overflow:hidden}
+.cta-section h2{color:white;max-width:700px;margin:0 0 20px;position:relative;z-index:1}
+.cta-section p{color:rgba(255,255,255,0.7);max-width:540px;margin:0 0 40px;position:relative;z-index:1}
+.cta-btns{display:flex;gap:14px;justify-content:flex-start;flex-wrap:wrap;position:relative;z-index:1}
+.cta-eyebrow{color:rgba(255,255,255,0.5);margin-bottom:16px;position:relative;z-index:1}
 .btn-white{background:white;color:var(--brand);font-weight:700;font-size:0.95rem;padding:14px 30px;border-radius:6px;display:inline-flex;align-items:center;gap:8px;transition:transform 0.2s,box-shadow 0.2s}
 .btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
 .btn-ghost-white{border:2px solid rgba(255,255,255,0.4);color:white;font-weight:600;font-size:0.95rem;padding:14px 30px;border-radius:6px;display:inline-flex;align-items:center;gap:8px;transition:border-color 0.2s,background 0.2s}
@@ -281,6 +284,18 @@ footer{background:#05061F;border-top:1px solid rgba(255,255,255,0.06);padding:40
 .page-hero .eyebrow{color:var(--brand-300)}
 .page-hero h1{color:white;max-width:700px;margin:16px 0 0}
 .page-hero-lead{color:rgba(255,255,255,0.62);font-size:1.1rem;max-width:580px;margin:20px 0 0;line-height:1.75}
+
+/* ── FRAMEWORKS LIST ── */
+.fw-list{border-top:1px solid var(--border)}
+.fw-list-item{display:grid;grid-template-columns:220px 1fr;gap:48px;padding:44px 0;border-bottom:1px solid var(--border);align-items:start;transition:background 0.2s}
+.fw-list-item:hover{background:rgba(0,166,81,0.025)}
+.fw-list-icon{width:40px;height:40px;border-radius:6px;background:var(--accent-100);display:flex;align-items:center;justify-content:center;margin-bottom:14px;flex-shrink:0}
+.fw-list-name{font-family:Cambria,Georgia,serif;font-size:1.15rem;font-weight:700;color:var(--text);line-height:1.25;margin-bottom:8px}
+.fw-list-tag{display:inline-block;font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent)}
+.fw-list-desc{font-size:0.92rem;color:var(--text-muted);line-height:1.8}
+
+/* ── ABOUT AUDIENCE ── */
+.about-audience{font-size:0.78rem;font-weight:600;letter-spacing:0.1em;color:var(--text-muted);margin-top:28px;line-height:2;text-transform:uppercase}
 
 /* ── NEW HERO (editorial, bottom-anchored) ── */
 .hero{align-items:flex-end}
@@ -404,6 +419,7 @@ footer{background:#05061F;border-top:1px solid rgba(255,255,255,0.06);padding:40
   .svc-list-item{grid-template-columns:52px 1fr;gap:24px}
   .svc-list-link{display:none}
   .geo-strip-inner{overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+  .fw-list-item{grid-template-columns:1fr;gap:16px}
 }
 @media(max-width:560px){
   .hero-strip{flex-wrap:wrap;gap:0}

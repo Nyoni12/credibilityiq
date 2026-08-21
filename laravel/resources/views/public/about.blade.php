@@ -29,10 +29,7 @@
           <blockquote>"We prepare and inspire individuals and organisations of any age and size to offer products and services that are humane, accessible, inclusive, and resilient, by deploying credibility values across their processes and value chains."</blockquote>
         </div>
         <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:28px;">We work with executives, government departments, parastatals, private enterprises, NGOs, and academic institutions across Zimbabwe and Eastern Africa, equipping them with the frameworks, skills, and evidence base to build lasting credibility at every level of their operations.</p>
-        <div class="about-pillars">
-          <div class="pillar">Individuals</div><div class="pillar">Families</div><div class="pillar">Communities</div>
-          <div class="pillar">Organisations</div><div class="pillar">Governments</div><div class="pillar">Businesses</div>
-        </div>
+        <p class="about-audience">Individuals &nbsp;·&nbsp; Families &nbsp;·&nbsp; Communities<br>Organisations &nbsp;·&nbsp; Governments &nbsp;·&nbsp; Businesses</p>
       </div>
       <div class="reveal-right">
         <div class="about-card">
@@ -65,12 +62,10 @@
 </section>
 
 <!-- BOTTOM CTA -->
-<section class="cta-section" style="position:relative;overflow:hidden;">
-  <div class="cta-orb cta-orb-1"></div>
-  <div class="cta-orb cta-orb-2"></div>
-  <div class="container" style="position:relative;z-index:1;">
-    <p class="eyebrow" style="color:rgba(255,255,255,0.6);display:flex;justify-content:center;margin-bottom:16px;">Start Your Credibility Journey</p>
-    <h2 class="display">Ready to Build a More Credible Organisation?</h2>
+<section class="cta-section">
+  <div class="container">
+    <p class="eyebrow cta-eyebrow">Start Your Credibility Journey</p>
+    <h2 class="display">Ready to Build a More<br>Credible Organisation?</h2>
     <p>Our team is ready to discuss your needs and recommend the right programme for your context. Reach out — we respond within 24 hours.</p>
     <div class="cta-btns">
       <a href="{{ route('contact') }}" class="btn-white">Get in Touch</a>

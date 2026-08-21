@@ -30,12 +30,10 @@
 </section>
 
 <!-- BOTTOM CTA -->
-<section class="cta-section" style="position:relative;overflow:hidden;">
-  <div class="cta-orb cta-orb-1"></div>
-  <div class="cta-orb cta-orb-2"></div>
-  <div class="container" style="position:relative;z-index:1;">
-    <p class="eyebrow" style="color:rgba(255,255,255,0.6);display:flex;justify-content:center;margin-bottom:16px;">Work With Our Team</p>
-    <h2 class="display">Ready to Engage Africa's Credibility Experts?</h2>
+<section class="cta-section">
+  <div class="container">
+    <p class="eyebrow cta-eyebrow">Work With Our Team</p>
+    <h2 class="display">Ready to Engage Africa's<br>Credibility Experts?</h2>
     <p>Reach out to discuss your organisation's needs. Our team is ready to recommend the right programme for your context.</p>
     <div class="cta-btns">
       <a href="{{ route('contact') }}" class="btn-white">Get in Touch</a>
