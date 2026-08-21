@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Credibility Factory Afrique | Credibility Training &amp; Consulting — Zimbabwe &amp; Africa')
+@section('title', 'Credibility Factory Afrique | Credibility Training & Consulting - Zimbabwe & Africa')
 
 @section('meta')
 <meta name="description" content="Africa's only firm specialising in credibility science. Executive clinics, corporate culture training, strategy facilitation, and the CredibilityIQ digital assessment platform. Serving Zimbabwe, Kenya and Tanzania.">
