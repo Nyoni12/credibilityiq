@@ -35,7 +35,7 @@
       <div class="svc-list-item reveal reveal-delay-1">
         <span class="svc-list-num">02</span>
         <div>
-          <div class="svc-list-title">Corporate Strategy — Values Alignment Sessions</div>
+          <div class="svc-list-title">Corporate Strategy: Values Alignment Sessions</div>
           <p class="svc-list-desc">Designed to kick-start or reset strategy formulation, this programme addresses one of the most pervasive failures in African organisations: the disconnect between stated strategy and lived values. Using the Credibility Flywheel&reg; Framework, we map the gaps between your Strategy Pillars and your company's actual values, then provide a practical roadmap to close those execution slippages and position your organisation for unfair competitive advantage.</p>
           <ul class="svc-outcomes"><li>A clear visual map of Strategy-Values gaps specific to your organisation</li><li>A practical, sequenced action plan to close strategy-execution slippages</li><li>Leadership alignment around a shared credibility-based strategy narrative</li><li>Monetised Strategy-Values link for sustainable market differentiation</li></ul>
           <span class="svc-list-for">For: Executive Teams, Strategy Committees &amp; Boards</span>
@@ -46,7 +46,7 @@
         <span class="svc-list-num">03</span>
         <div>
           <div class="svc-list-title">Culture Change Training Sessions</div>
-          <p class="svc-list-desc">For organisations in motion — undergoing restructuring, rapid growth, merger activity, or a deliberate cultural reset — this programme introduces and deepens a desired culture shift, anchored on the Credibility Life-Cycle&reg; Framework. Both the Flywheel&reg; and the Life Cycle&reg; models are deployed to identify practical steps that close execution slippages and align strategic pillars with employee and stakeholder expectations.</p>
+          <p class="svc-list-desc">For organisations in motion, undergoing restructuring, rapid growth, merger activity, or a deliberate cultural reset, this programme introduces and deepens a desired culture shift, anchored on the Credibility Life-Cycle&reg; Framework. Both the Flywheel&reg; and the Life Cycle&reg; models are deployed to identify practical steps that close execution slippages and align strategic pillars with employee and stakeholder expectations.</p>
           <ul class="svc-outcomes"><li>A diagnosed current-state culture map using the Credibility Life Cycle&reg;</li><li>A co-created target culture profile aligned to strategy and values</li><li>Measurable culture KPIs tied to Scalability, Sustainability, and Profitability</li><li>Embedded change champions equipped to sustain the culture shift</li></ul>
           <span class="svc-list-for">For: All Staff Levels, HR-led, Board-endorsed</span>
         </div>
@@ -76,7 +76,7 @@
         <span class="svc-list-num">06</span>
         <div>
           <div class="svc-list-title">Customer Service Experience Surveys &amp; Training</div>
-          <p class="svc-list-desc">Beginning with a rigorous survey of your current customer service landscape — internal stakeholders, customer touchpoints, and service delivery gaps — we then design and deliver a bespoke training programme that addresses the identified gaps with precision. The goal is a customer service culture that disrupts the competition, deepens external partnerships, and directly contributes to scalability, sustainability, and profitability.</p>
+          <p class="svc-list-desc">Beginning with a rigorous survey of your current customer service landscape, covering internal stakeholders, customer touchpoints, and service delivery gaps, we then design and deliver a bespoke training programme that addresses the identified gaps with precision. The goal is a customer service culture that disrupts the competition, deepens external partnerships, and directly contributes to scalability, sustainability, and profitability.</p>
           <ul class="svc-outcomes"><li>A detailed Customer Service Experience Gap Report with actionable recommendations</li><li>A bespoke training programme tailored to your specific service context</li><li>Staff equipped with both the mindset and the tools to deliver exceptional service</li><li>Measurable improvement in customer retention, satisfaction, and referral rates</li></ul>
           <span class="svc-list-for">For: Customer-Facing Teams, Service Managers &amp; Frontline Staff</span>
         </div>

@@ -66,7 +66,7 @@
   <div class="container">
     <p class="eyebrow cta-eyebrow">Start Your Credibility Journey</p>
     <h2 class="display">Ready to Build a More<br>Credible Organisation?</h2>
-    <p>Our team is ready to discuss your needs and recommend the right programme for your context. Reach out — we respond within 24 hours.</p>
+    <p>Our team is ready to discuss your needs and recommend the right programme for your context. Reach out. We respond within 24 hours.</p>
     <div class="cta-btns">
       <a href="{{ route('contact') }}" class="btn-white">Get in Touch</a>
       <a href="{{ route('services') }}" class="btn-ghost-white">Explore Our Services</a>

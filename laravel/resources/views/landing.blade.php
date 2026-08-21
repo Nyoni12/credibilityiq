@@ -242,7 +242,7 @@
       <div class="reveal-left">
         <p class="eyebrow">Who We Are</p>
         <h2 class="display" style="margin-top:12px;margin-bottom:24px;">Credibility Cannot Be Bought. It Must Be Earned.</h2>
-        <p class="lead">At Credibility Factory Afrique, we believe credibility is the highest form of personal and organisational currency — one that cannot be faked repeatedly, cannot be bought off the shelf, and must be earned, nurtured, and relentlessly protected. We work with executives, government departments, parastatals, private enterprises, NGOs, and academic institutions across Zimbabwe and Eastern Africa.</p>
+        <p class="lead">At Credibility Factory Afrique, we believe credibility is the highest form of personal and organisational currency. It cannot be faked repeatedly, cannot be bought off the shelf, and must be earned, nurtured, and relentlessly protected. We work with executives, government departments, parastatals, private enterprises, NGOs, and academic institutions across Zimbabwe and Eastern Africa.</p>
         <a href="{{ route('about') }}" class="btn-primary" style="margin-top:32px;display:inline-flex;">Learn More &rarr;</a>
       </div>
       <div class="reveal-right">
@@ -294,7 +294,7 @@
     <div class="services-intro">
       <p class="eyebrow reveal">What We Offer</p>
       <h2 class="display reveal" style="margin-top:12px;">It's a Journey, Not<br>a One-Day Workshop</h2>
-      <p class="lead reveal" style="margin-top:16px;max-width:560px;">Our programmes range from executive clinics to full-scale culture transformation engagements — every one customised to your organisation's context.</p>
+      <p class="lead reveal" style="margin-top:16px;max-width:560px;">Our programmes range from executive clinics to full-scale culture transformation engagements, every one customised to your organisation's context.</p>
     </div>
     <div class="svc-list">
       <div class="svc-list-item reveal">
@@ -309,7 +309,7 @@
       <div class="svc-list-item reveal reveal-delay-1">
         <span class="svc-list-num">02</span>
         <div>
-          <div class="svc-list-title">Corporate Strategy — Values Alignment</div>
+          <div class="svc-list-title">Corporate Strategy: Values Alignment</div>
           <p class="svc-list-desc">Using the Credibility Flywheel® Framework to map and close the gap between stated strategy and lived values, positioning your organisation for unfair competitive advantage through measurable credibility evidence.</p>
           <span class="svc-list-for">For: Executive Teams, Strategy Committees &amp; Boards</span>
         </div>
@@ -319,7 +319,7 @@
         <span class="svc-list-num">03</span>
         <div>
           <div class="svc-list-title">Culture Change Training Sessions</div>
-          <p class="svc-list-desc">For organisations undergoing restructuring, growth, or merger activity — embedding a deliberate culture shift anchored on the Credibility Life-Cycle® and Flywheel® models, with measurable KPIs tied to scalability and profitability.</p>
+          <p class="svc-list-desc">For organisations undergoing restructuring, growth, or merger activity, embedding a deliberate culture shift anchored on the Credibility Life-Cycle® and Flywheel® models, with measurable KPIs tied to scalability and profitability.</p>
           <span class="svc-list-for">For: All Staff Levels, HR-led, Board-endorsed</span>
         </div>
         <a href="{{ route('services') }}" class="svc-list-link">Details &rarr;</a>
@@ -336,7 +336,7 @@
   <div class="container" style="position:relative;z-index:1;">
     <p class="eyebrow" style="color:rgba(255,255,255,0.5);display:flex;justify-content:center;margin-bottom:16px;">Start Your Credibility Journey</p>
     <h2 class="display">Ready to Build the Most<br>Valuable Currency You Own?</h2>
-    <p>Whether you're an executive seeking a personal credibility clinic, an organisation undergoing culture change, or a team that needs its strategy and values aligned — we have a programme built for you.</p>
+    <p>Whether you're an executive seeking a personal credibility clinic, an organisation undergoing culture change, or a team that needs its strategy and values aligned, we have a programme built for you.</p>
     <div class="cta-btns">
       <a href="{{ route('contact') }}" class="btn-white">Book a Consultation</a>
       <a href="{{ route('services') }}" class="btn-ghost-white">Explore Our Services</a>

@@ -14,7 +14,7 @@
   <div class="container" style="position:relative;z-index:2;">
     <p class="eyebrow">Get in Touch</p>
     <h1 class="display">Let's Talk About Your Credibility Journey</h1>
-    <p class="page-hero-lead">Our team is ready to discuss your organisation's needs and recommend the right programme for your context. Reach out — we respond within 24 hours.</p>
+    <p class="page-hero-lead">Our team is ready to discuss your organisation's needs and recommend the right programme for your context. Reach out. We respond within 24 hours.</p>
   </div>
 </div>
 
